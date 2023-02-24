@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="#abdbe3"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="373dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#6b898e"
+        android:text="Next"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="377dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="75dp"
+        android:layout_height="34dp"
+        android:text="Alarm"
+        android:textSize="28sp"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="54dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="273dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:hint="Medication Name"
+        android:inputType="textPersonName"
+        android:textColorHint="#989090"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="120dp" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="275dp"
+        android:layout_height="198dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:textColorHint="#989090"
+        tools:layout_editor_absoluteX="69dp"
+        tools:layout_editor_absoluteY="166dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="#abdbe3"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="316dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#6b898e"
+        android:text="Example Group 1"
+        android:textColor="#2b3739"
+        android:textSize="14sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="105dp" />
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="316dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#6b898e"
+        android:text="Example Group 2"
+        android:textColor="#2b3739"
+        android:textSize="14sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="154dp" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="316dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#6b898e"
+        android:text="Example Group 3"
+        android:textColor="#2b3739"
+        android:textSize="14sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="196dp" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="316dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#6b898e"
+        android:text="Example Group 4"
+        android:textColor="#2b3739"
+        android:textSize="14sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="238dp" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="316dp"
+        android:layout_height="42dp"
+        android:backgroundTint="#6b898e"
+        android:text="Example Group 5"
+        android:textColor="#2b3739"
+        android:textSize="14sp"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="47dp"
+        tools:layout_editor_absoluteY="280dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="121dp"
+        android:layout_height="29dp"
+        android:text="Search Groups:"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="47dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="38dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="61dp"
+        android:layout_height="26dp"
+        android:backgroundTint="#abdbe3"
+        app:icon="@android:drawable/ic_menu_search"
+        tools:layout_editor_absoluteX="334dp"
+        tools:layout_editor_absoluteY="50dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
