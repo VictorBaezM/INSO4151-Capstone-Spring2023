@@ -6,7 +6,46 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:backgroundTint="#abdbe3"
-    tools:context=".MainActivity">
+    >
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="178dp"
+        android:layout_height="148dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="353dp"
+        android:layout_marginEnd="217dp"
+        android:layout_marginBottom="230dp"
+        android:backgroundTint="#6b898e"
+        android:text="Create Group"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        android:onClick="createGroup"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="178dp"
+        android:layout_height="147dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="351dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="233dp"
+        android:backgroundTint="#6b898e"
+        android:text="Join Group"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        app:iconGravity="textStart"
+        android:onClick="joinGroup"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button7"
@@ -100,44 +139,14 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="121dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="47dp"
-        android:layout_marginEnd="274dp"
-        android:layout_marginBottom="655dp"
-        android:text="Search Groups:"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="123dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginBottom="648dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="61dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="334dp"
+        android:layout_width="158dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="126dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="655dp"
-        android:backgroundTint="#abdbe3"
-        app:icon="@android:drawable/ic_menu_search"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="640dp"
+        android:text="Your Groups"
+        android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

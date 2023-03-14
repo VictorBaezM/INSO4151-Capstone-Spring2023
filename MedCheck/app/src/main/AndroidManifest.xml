@@ -12,7 +12,7 @@
         android:theme="@style/Theme.MedCheck"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".Log_In_Activity"
             android:exported="true">
             <intent-filter>
 
@@ -20,6 +20,34 @@
             <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Sign_Up_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Create_Group_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Group_Hub_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Group_Join_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Home_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".View_Groups_Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Pending_Implementation_Activity"
+            android:exported="true">
         </activity>
     </application>
 
