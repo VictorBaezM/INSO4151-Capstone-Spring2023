@@ -1,10 +1,10 @@
 package com.example.medcheck;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 //Manages Log in of the application. This class needs to achieve the following functionality:
 //     -Use text that is inserted by the user (Pending Implementation)

@@ -6,17 +6,17 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Create_Group_Activity extends AppCompatActivity {
+public class Date_for_Alarm_Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_group);
+        setContentView(R.layout.date_for_alarm);
 
     }
 
     public void createGroup(View view) {
-        startActivity(new Intent(Create_Group_Activity.this, Group_Hub_Activity.class));
+        startActivity(new Intent(Date_for_Alarm_Activity.this, Group_Hub_Activity.class));
         finish();
     }
 

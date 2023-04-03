@@ -1,10 +1,10 @@
 package com.example.medcheck;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 //Takes care of getting the necessary information from user for account creation. This class must complete the following requirements:
 //     - Use text that is inserted by the user (Pending Implementation)

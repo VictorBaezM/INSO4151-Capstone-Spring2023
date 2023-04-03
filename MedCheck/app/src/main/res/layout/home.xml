@@ -11,10 +11,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="75dp"
-        android:layout_marginEnd="110dp"
-        android:layout_marginBottom="624dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Welcome Back John"
         android:textColor="#000000"
@@ -22,7 +18,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
 
     <Button
         android:id="@+id/button2"
@@ -30,52 +27,42 @@
         android:layout_height="57dp"
 
 
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="427dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="247dp"
-
         android:backgroundTint="#6b898e"
+        android:onClick="viewGroups"
         android:text="View Groups"
         android:textColor="#2b3739"
         android:textSize="24sp"
-        android:onClick="viewGroups"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintVertical_bias="0.064" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="373dp"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="153dp"
         android:backgroundTint="#6b898e"
+        android:onClick="addAlarm"
         android:text="add alarm"
         android:textColor="#2b3739"
         android:textSize="24sp"
         app:icon="@android:drawable/ic_input_add"
         app:iconGravity="textStart"
-        android:onClick="addAlarm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintVertical_bias="0.106" />
 
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="63dp"
-        android:layout_marginTop="107dp"
-        android:layout_marginEnd="63dp"
-        android:layout_marginBottom="412dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.26"
         app:srcCompat="@drawable/stock" />
 </androidx.constraintlayout.widget.ConstraintLayout>

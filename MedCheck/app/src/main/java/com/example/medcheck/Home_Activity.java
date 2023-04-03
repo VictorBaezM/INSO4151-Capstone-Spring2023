@@ -1,10 +1,10 @@
 package com.example.medcheck;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Home_Activity extends AppCompatActivity {
 
