@@ -13,6 +13,9 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         edit = findViewById(R.id.edit);
         add = findViewById(R.id.add);
-
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

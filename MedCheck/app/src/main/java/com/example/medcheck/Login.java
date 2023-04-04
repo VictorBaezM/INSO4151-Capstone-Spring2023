@@ -13,6 +13,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class Login extends AppCompatActivity {
     private EditText email;
     private EditText password;
@@ -48,6 +52,13 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onSuccess(AuthResult authResult) {
                     Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    try {
+                        Data_Manager.WriteUserData(new User(email,"none","none",password,"none","none"),Login.this);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
                     startActivity(new Intent(Login.this, Home_Activity.class));
                     finish();
                 }
