@@ -204,6 +204,25 @@ public class Group {
         });
 
     }
+    public static void showFirst10Groups(ArrayList<Button> buttons) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.println(Log.INFO,"debug","Buttons "+buttons);
+        Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+            if (task.isSuccessful()){
+                int count =0;
+                for (QueryDocumentSnapshot i:task.getResult()){
+
+                    if(count < 10){
+                        buttons.get(count).setEnabled(true);
+                        buttons.get(count).setText(i.getId());
+                        buttons.get(count).setVisibility(View.VISIBLE);
+                        Log.println(Log.INFO,"debug","Group### "+i.getId());
+                        count++;}
+
+                }
+            }
+        });
+    }
 
     private static void getMessagesFromGroupCallback(ArrayList<Message> result, Context context) {
         Home_Activity.messages = result;

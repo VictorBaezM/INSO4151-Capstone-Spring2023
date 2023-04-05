@@ -82,6 +82,7 @@ public class Signup extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
                     User user =  new User(email,display_name,country,password,"false","false");
+                    user.setGroupNames("");
                     FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
                     if (newuser!=null){
                         Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();

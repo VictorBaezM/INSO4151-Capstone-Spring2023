@@ -35,7 +35,7 @@ public class View_Groups_Activity extends AppCompatActivity {
         Group_Displayed_2 = findViewById(R.id.Group_Displayed_2);
         Group_Displayed_3 = findViewById(R.id.Group_Displayed_3);
         Group_Displayed_4 = findViewById(R.id.Group_Displayed_4);
-        Group_Displayed_5 = findViewById(R.id.Group_Displayed_5);
+        Group_Displayed_5 = findViewById(R.id.Group_Displayed_6);
         Buttons.add(Group_Displayed_1);
         Buttons.add(Group_Displayed_2);
         Buttons.add(Group_Displayed_3);

@@ -22,7 +22,7 @@
         tools:layout_editor_absoluteY="542dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/SearchGroup"
         android:layout_width="138dp"
         android:layout_height="37dp"
         android:text="Date/Time"
