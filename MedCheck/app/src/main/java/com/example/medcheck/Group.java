@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -227,6 +228,29 @@ public class Group {
     private static void getMessagesFromGroupCallback(ArrayList<Message> result, Context context) {
         Home_Activity.messages = result;
         Toast.makeText(context, "Information updated", Toast.LENGTH_SHORT).show() ;
+    }
+
+    public static void verifypassword(String GroupName, String password, AppCompatActivity x){
+        Log.println(Log.INFO,"debug","the group name is "+GroupName+" and the password provided was "+ password);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference Dref =  db.collection("Groups").document(GroupName);
+        Dref.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot doc = task.getResult();
+                if(doc.exists()){
+                    Map<String,Object> map = doc.getData();
+                    map.get("GroupPassword");
+                    Log.println(Log.INFO,"debug","The password for the group "+GroupName+ " is " +map.get("GroupPassword").toString()+" and the password provided was "+ password);
+                    if(password.equals(map.get("GroupPassword").toString()))
+                    {if(x.getLocalClassName().equals("Group_Select")){
+                        ((Group_Select)x).getNextActivity();
+                    }else{
+                        return;
+                    }}
+
+                }}});
+
     }
 
 }
