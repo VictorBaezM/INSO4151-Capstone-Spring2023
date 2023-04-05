@@ -5,7 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartActivity">
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".StartActivity"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons"
+        android:layout_alignParentBottom="true"
+        tools:ignore="MissingConstraints" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_navigation"
+        app:itemIconTint="@color/selector"
+        app:labelVisibilityMode="unlabeled"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/button_menu"
+        tools:ignore="MissingConstraints" />
     <TextView
         android:layout_width="378dp"
         android:layout_height="70dp"
