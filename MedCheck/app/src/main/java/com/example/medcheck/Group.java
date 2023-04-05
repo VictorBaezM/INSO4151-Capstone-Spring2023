@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -148,6 +149,49 @@ public class Group {
 
 
     }
+
+
+    public static void getMessagesFromGroup(String name, Context context, ArrayList<TextView> T) throws InterruptedException {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference Dref =  db.collection("Groups").document(name);
+        ArrayList<Message> result= new ArrayList<Message>();
+        Dref.get().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot doc = task.getResult();
+                if(doc.exists()){
+                    Map<String,Object> map = doc.getData();
+                    for(int i = 0;i<map.size()-4;i++){
+                        String m = map.get("Message "+i).toString();
+                        Log.println(Log.INFO,"debug","Message "+i +map.get("Message "+i).getClass() );
+                        Log.println(Log.INFO,"debug","Message "+i +Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim())).getClass());
+                        result.add(Message.fromMap(Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim()))));
+                    }
+
+                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + doc.getData());
+                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + result);
+                    int count = 0;
+                    if(result.size()!=0){
+                    for(TextView x:T){
+                        x.setText(result.get(count).toString());
+                        count++;
+                    }}
+
+
+                    Group.getMessagesFromGroupCallback(result,context);
+                }else{
+                    Log.println(Log.INFO,"debug","User data not found");
+                }
+            }
+        });
+
+
+    }
+
+
+
+
+
+
 
     public static void getAllGroups(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

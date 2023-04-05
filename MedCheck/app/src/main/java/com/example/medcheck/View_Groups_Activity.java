@@ -2,6 +2,7 @@ package com.example.medcheck;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -49,6 +50,13 @@ public class View_Groups_Activity extends AppCompatActivity {
     public void joinGroup(View view) {
         startActivity(new Intent(View_Groups_Activity.this, Group_Join_Activity.class));
         finish();
+    }
+
+    public void openGroupHub(View view){
+        Group_Hub_Activity.GroupName = ((Button)view).getText().toString();
+        Log.println(Log.INFO,"debug","Writing in log the following group name "+((Button)view).getText().toString());
+        startActivity(new Intent(View_Groups_Activity.this, Group_Hub_Activity.class));
+
     }
 
 }
