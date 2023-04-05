@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,8 @@ public class Login extends AppCompatActivity {
     private EditText password;
     private Button login;
 
+    private TextView signup_user;
+
     public static User user;
     private FirebaseAuth auth;
 
@@ -42,8 +45,16 @@ public class Login extends AppCompatActivity {
         email = findViewById(R.id.email1);
         password = findViewById(R.id.password1);
         login = findViewById(R.id.login1);
-
+        signup_user = findViewById(R.id.signup_user);
         auth = FirebaseAuth.getInstance();
+
+        signup_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this , Signup.class));
+                finish();
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
