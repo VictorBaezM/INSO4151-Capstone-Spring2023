@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -49,12 +50,15 @@ public class Group {
             if (task.isSuccessful()){
                 int count =0;
                 for (QueryDocumentSnapshot i:task.getResult()){
-                    if(user.getGroupNames().contains(i.getId())){
+
+                    if(user.getGroupNames().contains(i.getId()) && count < 5){
                         buttons.get(count).setEnabled(true);
                         buttons.get(count).setText(i.getId());
                         buttons.get(count).setVisibility(View.VISIBLE);
-                    Log.println(Log.INFO,"debug","Group "+i.getId());}
-                    count++;
+                        Log.println(Log.INFO,"debug","User Group Names "+user.getGroupNames());
+                    Log.println(Log.INFO,"debug","Group### "+i.getId());
+                        count++;}
+
                 }
             }
         });

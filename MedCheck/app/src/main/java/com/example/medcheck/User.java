@@ -1,6 +1,7 @@
 package com.example.medcheck;
 import static com.example.medcheck.Login.user;
 
+import com.google.common.base.CharMatcher;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -115,6 +116,12 @@ public class User {
         obj.put("GroupNames",GroupNames);
         return obj;
     }
+
+    public int groupNumber(){
+        return CharMatcher.is(',').countIn(GroupNames)+1;
+
+    }
+
 
     public void uploadUser(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

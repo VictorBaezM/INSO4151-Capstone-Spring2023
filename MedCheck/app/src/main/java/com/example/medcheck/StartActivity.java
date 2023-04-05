@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 
@@ -21,6 +22,8 @@ public class StartActivity extends AppCompatActivity {
     private Button signup;
 
     private FirebaseAuth auth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +39,31 @@ public class StartActivity extends AppCompatActivity {
                     auth.signInWithEmailAndPassword(user.getEmail_address(), user.getUser_password()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(StartActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(StartActivity.this, Home_Activity.class));
-                            finish();
+                            Login l = new Login();
+                            l.loginHelper(StartActivity.this,StartActivity.this);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//                            Toast.makeText(StartActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(StartActivity.this, Home_Activity.class));
+//                            finish();
                         }
                     });
                 }catch(IllegalArgumentException e){
@@ -64,4 +89,9 @@ public class StartActivity extends AppCompatActivity {
         });
 
     }
+    public void getNextActivity(){
+        startActivity(new Intent(StartActivity.this, Home_Activity.class));
+        finish();
+    }
+
 }
