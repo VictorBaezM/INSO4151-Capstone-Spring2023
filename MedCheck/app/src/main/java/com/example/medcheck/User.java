@@ -2,6 +2,9 @@ package com.example.medcheck;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class User {
 
     private static String email_address;
@@ -80,4 +83,16 @@ public class User {
         obj.put("isDeleted",isDeleted);
         return obj;
     }
+
+    public Map<String,String> toMap() {
+        Map<String,String> obj = new HashMap<String,String>();
+        obj.put("email",email_address);
+        obj.put("display name",display_name);
+        obj.put("country",country);
+        obj.put("user password",user_password);
+        obj.put("isAdmin",isAdmin);
+        obj.put("isDeleted",isDeleted);
+        return obj;
+    }
+
 }

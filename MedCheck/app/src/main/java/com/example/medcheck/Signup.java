@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.json.JSONException;
 
 public class Signup extends AppCompatActivity {
     private EditText email;
@@ -63,6 +68,18 @@ public class Signup extends AppCompatActivity {
                 if (task.isSuccessful()){
                     Toast.makeText(Signup.this, "Signup successful", Toast.LENGTH_SHORT).show();
                     User user =  new User(email,display_name,country,password,"false","false");
+                    FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (newuser!=null){
+                        Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
+                        Log.println(Log.INFO,"debug","User is valid and is User#" + newuser.getUid());
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        db.collection("Users").document(newuser.getUid()).set(user.toMap());
+
+                    }
+                    else{
+                        Toast.makeText(Signup.this, "User is invalid", Toast.LENGTH_LONG).show();
+
+                    }
                     try {
                         Data_Manager.WriteUserData(user,Signup.this);
                     }catch (Exception e){
