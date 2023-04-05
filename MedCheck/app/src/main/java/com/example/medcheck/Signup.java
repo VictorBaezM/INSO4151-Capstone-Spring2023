@@ -3,6 +3,7 @@ package com.example.medcheck;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +27,8 @@ import org.json.JSONException;
 public class Signup extends AppCompatActivity {
     private EditText email;
     private EditText password;
+    private ProgressDialog pd;
+
 
     private EditText display_name;
     private TextView login_user;
@@ -41,9 +45,8 @@ public class Signup extends AppCompatActivity {
         display_name = findViewById(R.id.Username);
         country = findViewById(R.id.Country);
         login_user = findViewById(R.id.login_user);
-
+        pd = new ProgressDialog(this);
         signup = findViewById(R.id.SignUp);
-
         auth = FirebaseAuth.getInstance();
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +74,8 @@ public class Signup extends AppCompatActivity {
     }
 
     private void signupUser(String email, String password,String display_name,String country) {
+        pd.setMessage("please wait!");
+        pd.show();
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,11 +99,19 @@ public class Signup extends AppCompatActivity {
                     }catch (Exception e){
                         Toast.makeText(Signup.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                     }
-                    startActivity(new Intent(Signup.this , MainActivity.class));
+                    Intent intent = new Intent(Signup.this, MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
                 } else{
                     Toast.makeText(Signup.this, "Signup failed", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
+                Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
