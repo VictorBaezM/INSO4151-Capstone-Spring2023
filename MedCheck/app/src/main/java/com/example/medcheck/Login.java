@@ -78,6 +78,7 @@ public class Login extends AppCompatActivity {
                                         Map<String,Object> map =doc.getData();
                                         Log.println(Log.INFO,"debug","User data is" + doc.getData().get("email"));
                                         user = new User(map.get("email").toString(),map.get("display name").toString(),map.get("country").toString(),map.get("user password").toString(),map.get("isAdmin").toString(),map.get("isDeleted").toString());
+                                        user.setGroupNames(map.get("GroupNames").toString());
                                         try {
                                             Log.println(Log.INFO,"debug","User loaded from db has" + user.toJSON());
                                         } catch (JSONException e) {

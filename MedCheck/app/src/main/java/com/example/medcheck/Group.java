@@ -1,6 +1,10 @@
 package com.example.medcheck;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -10,6 +14,8 @@ import com.google.common.base.Splitter;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 
@@ -34,6 +40,24 @@ public class Group {
         this.isDeleted = "false";
         this.GroupPassword = GroupPassword;
         messages = new ArrayList<Message>();
+    }
+
+    public static void showOwnedGroups(User user,ArrayList<Button> buttons) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Log.println(Log.INFO,"debug","Buttons "+buttons);
+        Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+            if (task.isSuccessful()){
+                int count =0;
+                for (QueryDocumentSnapshot i:task.getResult()){
+                    if(user.getGroupNames().contains(i.getId())){
+                        buttons.get(count).setEnabled(true);
+                        buttons.get(count).setText(i.getId());
+                        buttons.get(count).setVisibility(View.VISIBLE);
+                    Log.println(Log.INFO,"debug","Group "+i.getId());}
+                    count++;
+                }
+            }
+        });
     }
 
     public String getSize() {
@@ -93,7 +117,7 @@ public class Group {
 
 
 
-    public static ArrayList<Message> getMessagesFromGroup(String name) throws InterruptedException {
+    public static void getMessagesFromGroup(String name, Context context) throws InterruptedException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference Dref =  db.collection("Groups").document(name);
         ArrayList<Message> result= new ArrayList<Message>();
@@ -101,7 +125,7 @@ public class Group {
             if(task.isSuccessful()){
                 DocumentSnapshot doc = task.getResult();
                 if(doc.exists()){
-                    Map<String,Object> map =doc.getData();
+                    Map<String,Object> map = doc.getData();
                     for(int i = 0;i<map.size()-4;i++){
                         String m = map.get("Message "+i).toString();
                         Log.println(Log.INFO,"debug","Message "+i +map.get("Message "+i).getClass() );
@@ -111,7 +135,7 @@ public class Group {
 
                     Log.println(Log.INFO,"debug","The messages for "+name+" are " + doc.getData());
                     Log.println(Log.INFO,"debug","The messages for "+name+" are " + result);
-
+                    Group.getMessagesFromGroupCallback(result,context);
                 }else{
                     Log.println(Log.INFO,"debug","User data not found");
                 }
@@ -119,7 +143,23 @@ public class Group {
         });
 
 
-        return result;
+    }
+
+    public static void getAllGroups(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+            if (task.isSuccessful()){
+                for (QueryDocumentSnapshot i:task.getResult()){
+                    Log.println(Log.INFO,"debug","Group "+i.getId());
+                }
+            }
+        });
+
+    }
+
+    private static void getMessagesFromGroupCallback(ArrayList<Message> result, Context context) {
+        Home_Activity.messages = result;
+        Toast.makeText(context, "Information updated", Toast.LENGTH_SHORT).show() ;
     }
 
 }

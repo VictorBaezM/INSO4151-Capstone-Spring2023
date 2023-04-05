@@ -1,4 +1,10 @@
 package com.example.medcheck;
+import static com.example.medcheck.Login.user;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,6 +20,8 @@ public class User {
     private static String isAdmin;
     private static String isDeleted;
 
+    private static String GroupNames;
+
     public User(String email_address,String display_name,String country,String user_password,String isAdmin,String isDeleted){
         this.email_address = email_address;
         this.display_name = display_name;
@@ -23,6 +31,17 @@ public class User {
         this.isDeleted = isDeleted;
     }
 
+    public String getGroupNames() {
+        return GroupNames;
+    }
+
+    public void setGroupNames(String groupNames) {
+        GroupNames = groupNames;
+    }
+
+    public void addGroupNames(String groupName) {
+        GroupNames = GroupNames+","+groupName;
+    }
 
     public String getEmail_address() {
         return email_address;
@@ -81,6 +100,7 @@ public class User {
         obj.put("user password",user_password);
         obj.put("isAdmin",isAdmin);
         obj.put("isDeleted",isDeleted);
+        obj.put("GroupNames",GroupNames);
         return obj;
     }
 
@@ -92,7 +112,14 @@ public class User {
         obj.put("user password",user_password);
         obj.put("isAdmin",isAdmin);
         obj.put("isDeleted",isDeleted);
+        obj.put("GroupNames",GroupNames);
         return obj;
+    }
+
+    public void uploadUser(){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("Users").document(newuser.getUid()).set(user.toMap());
     }
 
 }

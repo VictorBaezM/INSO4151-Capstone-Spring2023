@@ -50,7 +50,7 @@ public class Data_Manager {
         JSONObject JsonObject = new JSONObject(responce);
         Log.println(Log.INFO,"debug","This is the data read in JSON format: "+JsonObject);
         User user = new User(JsonObject.get("email").toString(),JsonObject.get("display name").toString(),JsonObject.get("country").toString(),JsonObject.get("user password").toString(),JsonObject.get("isAdmin").toString(),JsonObject.get("isDeleted").toString());
-
+        user.setGroupNames(JsonObject.get("GroupNames").toString());
 
 
 

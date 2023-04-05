@@ -7,7 +7,7 @@
     android:background="#abdbe3">
 
     <EditText
-        android:id="@+id/SignUp_email"
+        android:id="@+id/GroupName"
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="219dp"
         android:layout_height="46dp"
@@ -23,6 +23,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.385" />
+
+    <EditText
+        android:id="@+id/GroupPassword"
+        style="@style/Widget.AppCompat.AutoCompleteTextView"
+        android:layout_width="219dp"
+        android:layout_height="46dp"
+
+        android:background="@drawable/rounded_rectangle"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:textColorHint="#989090"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573" />
 
     <TextView
         android:id="@+id/textView9"
@@ -43,6 +61,7 @@
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="218dp"
         android:layout_height="48dp"
+        android:id="@+id/GroupSize"
 
         android:background="@drawable/rounded_rectangle"
         android:ems="10"
@@ -86,7 +105,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.594" />
+        app:layout_constraintVertical_bias="0.705" />
 
     <TextView
         android:id="@+id/textView8"
@@ -102,4 +121,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.452" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:background="#abdbe3"
+        android:text="Password"
+        android:textColor="#2b3739"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.542" />
 </androidx.constraintlayout.widget.ConstraintLayout>
