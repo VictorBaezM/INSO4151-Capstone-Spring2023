@@ -12,6 +12,9 @@
         android:theme="@style/Theme.MedCheck_backend"
         tools:targetApi="31">
         <activity
+            android:name=".Chat_Activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
@@ -19,42 +22,34 @@
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Create_Group_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Group_Hub_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Group_Join_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Home_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".View_Groups_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Pending_Implementation_Activity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

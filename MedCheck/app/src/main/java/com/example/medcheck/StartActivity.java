@@ -53,15 +53,13 @@ public class StartActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener(){
             @Override
             public  void onClick(View v){
-                startActivity(new Intent(StartActivity.this , Signup.class));
-                finish();
+                startActivity(new Intent(StartActivity.this , Signup.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
         login.setOnClickListener(new View.OnClickListener(){
             @Override
             public  void onClick(View v){
-                startActivity(new Intent(StartActivity.this , Login.class));
-                finish();
+                startActivity(new Intent(StartActivity.this , Login.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
