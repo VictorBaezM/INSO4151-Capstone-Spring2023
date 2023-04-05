@@ -31,7 +31,7 @@ public class Create_Group_Activity extends AppCompatActivity {
     public void createGroup(View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Log.println(Log.INFO,"debug","Group ");
-        if(Login.user.groupNumber()>=4){
+        if(Login.user.groupNumber()+1>5){
             Toast.makeText(Create_Group_Activity.this, "Maximum amount of groups reached", Toast.LENGTH_LONG).show();
             return;
         }

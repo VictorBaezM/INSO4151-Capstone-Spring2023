@@ -41,29 +41,6 @@ public class StartActivity extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             Login l = new Login();
                             l.loginHelper(StartActivity.this,StartActivity.this);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//                            Toast.makeText(StartActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-//                            startActivity(new Intent(StartActivity.this, Home_Activity.class));
-//                            finish();
                         }
                     });
                 }catch(IllegalArgumentException e){
