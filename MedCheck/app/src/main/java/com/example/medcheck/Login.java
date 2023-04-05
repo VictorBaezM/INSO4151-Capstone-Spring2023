@@ -88,7 +88,7 @@ public class Login extends AppCompatActivity {
                                     }
                                 }
                             }
-                                });
+                        });
 
                     }
                     else{
@@ -104,8 +104,16 @@ public class Login extends AppCompatActivity {
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
-                    startActivity(new Intent(Login.this, Home_Activity.class));
-                    finish();
+
+
+                    //TODO implement email verification to activate this conditionals
+                    //if(auth.getCurrentUser().isEmailVerified()){
+                        startActivity(new Intent(Login.this, Home_Activity.class));
+                        finish();
+                 //   }else{
+                        Toast.makeText(Login.this, "Please verify your email ", Toast.LENGTH_SHORT).show();
+                  //  }
+
                 }
             });
         }catch(IllegalArgumentException e){

@@ -72,7 +72,7 @@ public class Signup extends AppCompatActivity {
             }
         });
     }
-
+//TODO implement email verification on signup
     private void signupUser(String email, String password,String display_name,String country) {
         pd.setMessage("please wait!");
         pd.show();
@@ -80,7 +80,7 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(Signup.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
                     User user =  new User(email,display_name,country,password,"false","false");
                     FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
                     if (newuser!=null){
@@ -99,7 +99,7 @@ public class Signup extends AppCompatActivity {
                     }catch (Exception e){
                         Toast.makeText(Signup.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                     }
-                    Intent intent = new Intent(Signup.this, MainActivity.class);
+                    Intent intent = new Intent(Signup.this, Home_Activity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
