@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 import java.util.stream.Collectors;
 
 public class Group {
@@ -64,6 +65,14 @@ public class Group {
                 }
             }
         });
+    }
+
+    public ArrayList<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
     }
 
     public String getSize() {
@@ -119,6 +128,7 @@ public class Group {
     public void uploadGroup(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("Groups").document(this.getGroupName()).set(this.toMap());
+
     }
 
 

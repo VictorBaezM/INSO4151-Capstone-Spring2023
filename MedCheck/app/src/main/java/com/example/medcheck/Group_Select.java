@@ -22,9 +22,9 @@ public class Group_Select extends AppCompatActivity {
     }
 
     public void joinGroup(View view){
-
         String passwword_given = ((EditText)findViewById(R.id.EntryPassword)).getText().toString();
         Group.verifypassword(Group_Hub_Activity.GroupName,passwword_given,Group_Select.this);
+
     }
 
     public void getNextActivity(){
