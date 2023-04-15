@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Chat_Activity extends AppCompatActivity {
 
     @Override

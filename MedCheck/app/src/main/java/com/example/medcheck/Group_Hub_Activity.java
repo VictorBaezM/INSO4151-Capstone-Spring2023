@@ -14,9 +14,10 @@ public class Group_Hub_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pending_implementation); // Need to change layout
+        setContentView(R.layout.activity_chat); // Need to change layout
         ArrayList<TextView> Messages = new ArrayList<>();// If there are multiple text views this is the way to go.
-        Messages.add(findViewById(R.id.foo));
+        // TODO finish recycle view and display messages
+        //Messages.add(findViewById(R.id.messageTv));
 
         try {
             Group.getMessagesFromGroup(GroupName,Group_Hub_Activity.this,Messages);
