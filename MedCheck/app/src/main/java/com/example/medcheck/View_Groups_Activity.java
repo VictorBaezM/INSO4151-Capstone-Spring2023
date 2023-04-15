@@ -31,7 +31,7 @@ public class View_Groups_Activity extends AppCompatActivity {
     }
     private void initializeButtons(){
         Buttons = new ArrayList<>();
-        Group_Displayed_1 = findViewById(R.id.Group_Displayed_1);
+        Group_Displayed_1 = findViewById(R.id.JoinGroup);
         Group_Displayed_2 = findViewById(R.id.Group_Displayed_2);
         Group_Displayed_3 = findViewById(R.id.Group_Displayed_3);
         Group_Displayed_4 = findViewById(R.id.Group_Displayed_4);
