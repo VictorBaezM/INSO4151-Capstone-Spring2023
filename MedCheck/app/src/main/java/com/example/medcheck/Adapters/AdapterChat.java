@@ -18,7 +18,7 @@ import java.util.List;
 public class AdapterChat extends RecyclerView.Adapter<AdapterChat.myHolder>{
 
     private static final int MSG_TYPE_RIGHT = 0;
-    private static final int MSG_TYPE_LEFT = 0;
+    private static final int MSG_TYPE_LEFT = 1;
     FirebaseUser fUser;
 
     Context context;
@@ -72,7 +72,6 @@ public AdapterChat(Context context, List<com.example.medcheck.Message> chatList)
 
         public myHolder(@NonNull View itemView) {
             super(itemView);
-
             timeTv = itemView.findViewById(R.id.timeTv);
             messageTv = itemView.findViewById(R.id.messageTv);
 
