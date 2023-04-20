@@ -26,7 +26,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Login extends AppCompatActivity {
     private EditText email;
@@ -35,7 +37,7 @@ public class Login extends AppCompatActivity {
 
     private TextView signup_user;
 
-    public static User user;
+
     private FirebaseAuth auth;
 
     @Override
@@ -83,23 +85,13 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task){
                         if(task.isSuccessful()){
                             DocumentSnapshot doc = task.getResult();
-                            if(doc.exists()){
-                                Map<String,Object> map =doc.getData();
-                                Log.println(Log.INFO,"debug","User data is" + doc.getData().get("email"));
-                                user = new User(map.get("email").toString(),map.get("display name").toString(),map.get("country").toString(),map.get("user password").toString(),map.get("isAdmin").toString(),map.get("isDeleted").toString());
-                                user.setGroupNames(map.get("GroupNames").toString());
+                            Home_Activity.user = doc.toObject(User.class);
                                 try {
-                                    Data_Manager.WriteUserData(user,context);
+                                    Data_Manager.WriteUserData(Home_Activity.user);
                                 } catch (IOException e) {
                                     throw new RuntimeException(e);
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
                                 }
-                                try {
-                                    Log.println(Log.INFO,"debug","User loaded from db has" + user.toJSON());
-                                } catch (JSONException e) {
-                                    throw new RuntimeException(e);
-                                }
+                                    Log.println(Log.INFO,"debug","User loaded from db has" + Home_Activity.user.toString());
 
                                 if(x.getLocalClassName().equals("StartActivity")){
                                     ((StartActivity)x).getNextActivity();
@@ -113,7 +105,7 @@ public class Login extends AppCompatActivity {
                                 Log.println(Log.INFO,"debug","User data not found");
                             }
                         }
-                    }
+
                 });
 
             }

@@ -5,47 +5,54 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Splitter;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class Group {
 
-    private String size;
     private String GroupName;
-    private String isDeleted;
     private String GroupPassword;
-
     private ArrayList<Message> messages;
+    private ArrayList<Alarm> alarms;
 
-    public Group(String GroupName,String size, String GroupPassword) {
-        this.size = size;
+
+    public Group(){}
+    //Creates a group object
+    /*
+    A group object is composed of the following attributes:
+    GroupName =  the name of the group
+    GroupPassword = the password for that particular group
+    messages = holds the messages that are part of the group
+    alarms = holds the alarms that are part of the group
+     */
+    public Group(String GroupName, String GroupPassword) {
         this.GroupName = GroupName;
-        this.isDeleted = "false";
         this.GroupPassword = GroupPassword;
         messages = new ArrayList<Message>();
+        alarms = new ArrayList<Alarm>();
     }
-
+    //Receives a user and an arraylist of buttons.
+    //Looks for the groups that the user provided is a part of
+    //Takes the text of each button and changes it to the name of a group the user is part of
+    //Each button will represent a different group.
+    //When the buttons name is changed it will be made visible and will be enabled.
+    //This method can only change the name of five buttons.
     public static void showOwnedGroups(User user,ArrayList<Button> buttons) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Log.println(Log.INFO,"debug","Buttons "+buttons);
@@ -67,20 +74,51 @@ public class Group {
         });
     }
 
+    public static void showFirst10Groups(ArrayList<Button> buttons) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            Log.println(Log.INFO,"debug","Buttons "+buttons);
+            Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+                if (task.isSuccessful()){
+                    int count =0;
+                    for (QueryDocumentSnapshot i:task.getResult()){
+                        if (i.exists()) {
+                            String GroupName =i.toObject(Group.class).getGroupName();
+                            if(Home_Activity.user.getGroupNames().contains(GroupName))
+                                continue;
+                        if(count < 10){
+                            buttons.get(count).setEnabled(true);
+                            buttons.get(count).setText(GroupName);
+                            buttons.get(count).setVisibility(View.VISIBLE);
+                            Log.println(Log.INFO,"debug","Group "+GroupName);
+                            count++;}
+                        Log.println(Log.INFO,"debug","This is message 1 in show first 10 groups");
+    }}
+                Monitor.setMonitor2(1);
+                }});
+        Tasks.whenAllComplete(Dref);
+        while(Monitor.Monitor2==0);
+        Monitor.Monitor2 = 0;
+        Log.println(Log.INFO,"debug","This is message 2 in show first 10 groups");
+
+
+
+
+    }
+
+    public ArrayList<Alarm> getAlarms() {
+        return alarms;
+    }
+
+    public void setAlarms(ArrayList<Alarm> alarms) {
+        this.alarms = alarms;
+    }
+
     public ArrayList<Message> getMessages() {
         return messages;
     }
 
     public void setMessages(ArrayList<Message> messages) {
         this.messages = messages;
-    }
-
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
     }
 
     public String getGroupName() {
@@ -91,13 +129,6 @@ public class Group {
         GroupName = groupName;
     }
 
-    public String getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(String isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 
     public String getGroupPassword() {
         return GroupPassword;
@@ -111,91 +142,54 @@ public class Group {
         return messages.add(m);
     }
 
+    public boolean addAlarm(Alarm a){
+        return alarms.add(a);
+    }
+
+    //Maps a group with the following format
+    //GroupName = ExampleName
+    //GroupPassword = ExamplePassword
+    //Message 1 = Message Object
+    //Message 2 = Message Object
+    //...
+    //Message n = Message Object
+    //Alarm 1 = Alarm Object
+    //Alarm 2 = Alarm Object
+    //...
+    //Alarm n = Alarm Object
+    //*Firebase changes this to alphabetical order*
     public Map<String,String> toMap() {
         Map<String,String> obj = new HashMap<String,String>();
         int count = 0;
-        obj.put("size",size);
+        int count1 = 0;
         obj.put("GroupName",GroupName);
-        obj.put("isDeleted",isDeleted);
         obj.put("GroupPassword",GroupPassword);
         for (Message m:messages){
             obj.put("Message "+ count,m.toMap().toString());
             count++;
         }
+        for (Alarm a:alarms){
+            obj.put("Alarm "+ count1,a.toMap().toString());
+            count1++;
+        }
         return obj;
     }
 
+    //Converts the current group into a map and uploads it to the db
+
     public void uploadGroup(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Groups").document(this.getGroupName()).set(this.toMap());
-
+        db.collection("Groups").document(this.getGroupName()).set(this);
     }
 
 
 
-    public static void getMessagesFromGroup(String name, Context context) throws InterruptedException {
+    //Deletes the group in the database with the given name, if it exists.
+    public void deleteGroup(String name){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference Dref =  db.collection("Groups").document(name);
-        ArrayList<Message> result= new ArrayList<Message>();
-        Dref.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                DocumentSnapshot doc = task.getResult();
-                if(doc.exists()){
-                    Map<String,Object> map = doc.getData();
-                    for(int i = 0;i<map.size()-4;i++){
-                        String m = map.get("Message "+i).toString();
-                        Log.println(Log.INFO,"debug","Message "+i +map.get("Message "+i).getClass() );
-                        Log.println(Log.INFO,"debug","Message "+i +Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim())).getClass());
-                        result.add(Message.fromMap(Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim()))));
-                    }
-
-                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + doc.getData());
-                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + result);
-                    Group.getMessagesFromGroupCallback(result,context);
-                }else{
-                    Log.println(Log.INFO,"debug","User data not found");
-                }
-            }
-        });
-
-
-    }
-
-
-    public static void getMessagesFromGroup(String name, Context context, ArrayList<TextView> T) throws InterruptedException {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference Dref =  db.collection("Groups").document(name);
-        ArrayList<Message> result= new ArrayList<Message>();
-        Dref.get().addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                DocumentSnapshot doc = task.getResult();
-                if(doc.exists()){
-                    Map<String,Object> map = doc.getData();
-                    for(int i = 0;i<map.size()-4;i++){
-                        String m = map.get("Message "+i).toString();
-                        Log.println(Log.INFO,"debug","Message "+i +map.get("Message "+i).getClass() );
-                        Log.println(Log.INFO,"debug","Message "+i +Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim())).getClass());
-                        result.add(Message.fromMap(Arrays.stream(m.substring(1, m.length() - 1).split(",")).map(s -> s.split("=", 2)).collect(Collectors.toMap(s -> s[0].trim(), s -> s[1].trim()))));
-                    }
-
-                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + doc.getData());
-                    Log.println(Log.INFO,"debug","The messages for "+name+" are " + result);
-                    int count = 0;
-                    if(result.size()!=0){
-                    for(TextView x:T){
-                        x.setText(result.get(count).toString());
-                        count++;
-                    }}
-
-
-                    Group.getMessagesFromGroupCallback(result,context);
-                }else{
-                    Log.println(Log.INFO,"debug","User data not found");
-                }
-            }
-        });
-
-
+        db.collection("Groups").document(name).delete()
+                .addOnSuccessListener(task -> Log.println(Log.INFO,"debug","Could delete group "))
+                .addOnFailureListener(task -> Log.println(Log.INFO,"debug","Could not delete group "));
     }
 
 
@@ -204,40 +198,47 @@ public class Group {
 
 
 
+
+
+    //Gets all the groups present in the database and displays their names TESTING METHOD!!!
     public static void getAllGroups(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
             if (task.isSuccessful()){
                 for (QueryDocumentSnapshot i:task.getResult()){
-                    Log.println(Log.INFO,"debug","Group "+i.getId());
+                    Log.println(Log.INFO,"debug","Group "+i.toObject(Group.class).getGroupName());
                 }
             }
         });
 
     }
-    public static void showFirst10Groups(ArrayList<Button> buttons) {
+
+
+    //To use this method you first need to create an instance of group and then call it
+    //Group g= new Group();
+    //g.getGroupFromDB("example group");
+
+    //This method gets the group from the db that has the same name as the one provided.
+    // If it does not exist a null object reference will remain.
+
+    public void getGroupFromDB(String name) throws ExecutionException, InterruptedException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Log.println(Log.INFO,"debug","Buttons "+buttons);
-        Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
-            if (task.isSuccessful()){
-                int count =0;
-                for (QueryDocumentSnapshot i:task.getResult()){
-
-                    if(count < 10){
-                        buttons.get(count).setEnabled(true);
-                        buttons.get(count).setText(i.getId());
-                        buttons.get(count).setVisibility(View.VISIBLE);
-                        Log.println(Log.INFO,"debug","Group### "+i.getId());
-                        count++;}
-
+        DocumentReference Dref =  db.collection("Groups").document(name);
+        AtomicReference<Group> group1 = new AtomicReference<>(new Group());
+        Task<DocumentSnapshot> var = Dref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot doc = task.getResult();
+                if (doc.exists()) {
+                    group1.set(doc.toObject(Group.class));
+                    Log.println(Log.INFO,"debug","1The group acquired by the db is "+group1.toString());
+                    Monitor.setMonitor1(1);
                 }
             }
         });
-    }
-
-    private static void getMessagesFromGroupCallback(ArrayList<Message> result, Context context) {
-        Home_Activity.messages = result;
-        Toast.makeText(context, "Information updated", Toast.LENGTH_SHORT).show() ;
+        Tasks.whenAllComplete(var);
+        while(Monitor.Monitor1==0);
+        Monitor.Monitor1 = 0;
+        Log.println(Log.INFO,"debug","2The group acquired by the db is "+group1.toString());
     }
 
     public static void verifypassword(String GroupName, String password, AppCompatActivity x){
@@ -249,10 +250,10 @@ public class Group {
             if(task.isSuccessful()){
                 DocumentSnapshot doc = task.getResult();
                 if(doc.exists()){
-                    Map<String,Object> map = doc.getData();
-                    map.get("GroupPassword");
-                    Log.println(Log.INFO,"debug","The password for the group "+GroupName+ " is " +map.get("GroupPassword").toString()+" and the password provided was "+ password);
-                    if(password.equals(map.get("GroupPassword").toString()))
+                    Group Temp = doc.toObject(Group.class);
+                    String OriginalPassword = Temp.getGroupPassword();
+                    Log.println(Log.INFO,"debug","The password for the group "+GroupName+ " is " +OriginalPassword+" and the password provided was "+ password);
+                    if(password.equals(OriginalPassword))
                     {if(x.getLocalClassName().equals("Group_Select")){
                         ((Group_Select)x).getNextActivity();
                     }else{
@@ -260,7 +261,22 @@ public class Group {
                     }}
 
                 }}});
-
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "GroupName='" + GroupName + '\'' +
+                ", GroupPassword='" + GroupPassword + '\'' +
+                ", messages=" + messages +
+                ", alarms=" + alarms +
+                '}';
+    }
+
+    public void ClearInfo() {
+        setAlarms(null);
+        setMessages(null);
+    }
+
 
 }

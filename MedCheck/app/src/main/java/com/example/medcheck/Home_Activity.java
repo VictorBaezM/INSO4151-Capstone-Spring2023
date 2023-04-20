@@ -21,42 +21,21 @@ import java.util.stream.Collectors;
 
 public class Home_Activity extends AppCompatActivity {
 
+    public static User user;
 
     public static ArrayList<Message> messages = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-//        debug();
+
 
 
 
 
 
     }
-    private void debug(){
-        FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
-        Group g = new Group("Helping Group","10","password");
-        Group g1 = new Group("Assist Those in Need","10","password");
-        Group g2 = new Group("Providing Aid","10","password");
-        Message m;
-        for(int i = 0;i<100;i++){
-            m = new Message(newuser.getUid(),"Hello World"+i,"This is the body"+i);
-            g.addMessage(m);
-            g1.addMessage(m);
-            g2.addMessage(m);
-            Log.println(Log.INFO,"debug","This is the message created "+m.toMap());
-        }
-        g.uploadGroup();
-        g1.uploadGroup();
-        g2.uploadGroup();
-        try {
-            Group.getMessagesFromGroup("SpecialForce",Home_Activity.this);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);}
-        Group.getAllGroups();
-        Log.println(Log.INFO,"debug","This is the group created "+g.toMap() );
-    }
+
 
     public void viewGroups(View view) {
         startActivity(new Intent(Home_Activity.this, View_Groups_Activity.class));
@@ -72,7 +51,8 @@ public class Home_Activity extends AppCompatActivity {
 
             FirebaseAuth.getInstance().signOut();
             Toast.makeText(Home_Activity.this, "Logged out", Toast.LENGTH_SHORT).show();
-            Data_Manager.deleteUserData(Home_Activity.this);
+            Data_Manager.deleteUserData();
+            Home_Activity.user =null;
             startActivity(new Intent(Home_Activity.this, StartActivity.class));
             finish();
 

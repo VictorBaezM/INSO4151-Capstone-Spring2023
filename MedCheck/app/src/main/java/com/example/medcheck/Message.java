@@ -12,23 +12,20 @@ import java.util.Map;
 public class Message {
 
     private String Uid;
-    private String Subject;
-    private String Body;
+    private String Content;
     private String Send_Date;
     private String Send_Time;
-    private String isDeleted;
 
-    public Message(String Uid,String Subject,String Body){
+
+    public Message(String Uid,String Content){
         this.Uid = Uid;
-        this.Subject = Subject;
-        this.Body = Body;
+        this.Content =Content;
         SimpleDateFormat SDF =  new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
         String date = SDF.format(c.getTime());
         Date time = Calendar.getInstance().getTime();
         Send_Date = date;
         Send_Time = time.toString().substring(11,19);
-        this.isDeleted = "false";
 
     }
 
@@ -36,28 +33,12 @@ public class Message {
 
     }
 
-    public String getSubject() {
-        return Subject;
+    public String getContent() {
+        return Content;
     }
 
-    public void setSubject(String subject) {
-        Subject = subject;
-    }
-
-    public String getBody() {
-        return Body;
-    }
-
-    public void setBody(String body) {
-        Body = body;
-    }
-
-    public String getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(String isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setContent(String content) {
+        Content = content;
     }
 
     public String getUid() {
@@ -88,33 +69,27 @@ public class Message {
     public String toString() {
         return "Message{" +
                 "Uid='" + Uid + '\'' +
-                ", Subject='" + Subject + '\'' +
-                ", Body='" + Body + '\'' +
+                ", Content='" + Content + '\'' +
                 ", Send_Date='" + Send_Date + '\'' +
                 ", Send_Time='" + Send_Time + '\'' +
-                ", isDeleted='" + isDeleted + '\'' +
                 '}';
     }
 
     public Map<String,String> toMap(){
         Map<String,String> obj = new HashMap<String,String>();
         obj.put("Uid",Uid);
-        obj.put("Subject",Subject);
-        obj.put("Body",Body);
+        obj.put("Content",Content);
         obj.put("Send_Date",Send_Date);
         obj.put("Send_Time",Send_Time);
-        obj.put("isDeleted",isDeleted);
         return obj;
     }
     public static Message fromMap(Map<String,String> map){
         Log.println(Log.INFO,"debug","The map received is "+map);
         Message message= new Message();
         message.setUid(map.get("Uid"));
-        message.setSubject(map.get("Subject"));
-        message.setBody(map.get("Body"));
+        message.setContent(map.get("Content"));
         message.setSend_Date(map.get("Send_Date"));
         message.setSend_Time(map.get("Send_Time"));
-        message.setIsDeleted(map.get("isDeleted"));
         return message;
     }
 }

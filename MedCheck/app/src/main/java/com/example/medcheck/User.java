@@ -1,47 +1,62 @@
 package com.example.medcheck;
-import static com.example.medcheck.Login.user;
 
-import com.google.common.base.CharMatcher;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
 
-public class User {
+import java.util.ArrayList;
 
-    private static String email_address;
-    private static String display_name;
-    private static String country;
-    private static String user_password;
-    private static String isAdmin;
-    private static String isDeleted;
 
-    private static String GroupNames;
+public class User implements java.io.Serializable{
 
-    public User(String email_address,String display_name,String country,String user_password,String isAdmin,String isDeleted){
+    private  String email_address;
+    private  String display_name;
+    private  String country;
+    private  String user_password;
+
+    private  ArrayList<String> GroupNames;
+
+    public ArrayList<Alarm> alarms;
+
+    public User(){}
+
+    public User(String email_address,String display_name,String country,String user_password){
         this.email_address = email_address;
         this.display_name = display_name;
         this.country = country;
         this.user_password = user_password;
-        this.isAdmin = isAdmin;
-        this.isDeleted = isDeleted;
+        this.alarms =  new ArrayList<>();
+        GroupNames =  new ArrayList<>();
+
     }
 
-    public String getGroupNames() {
+
+
+    //Adds an alarm to the list of alarms for the user
+    public void addAlarm(Alarm x){
+        this.alarms.add(x);
+    }
+
+    public  ArrayList<String> getGroupNames() {
         return GroupNames;
     }
 
-    public void setGroupNames(String groupNames) {
+    public void setGroupNames(ArrayList<String> groupNames) {
         GroupNames = groupNames;
     }
 
+    public ArrayList<Alarm> getAlarms() {
+        return alarms;
+    }
+
+    public void setAlarms(ArrayList<Alarm> alarms) {
+        this.alarms = alarms;
+    }
+
     public void addGroupNames(String groupName) {
-        GroupNames = GroupNames+","+groupName;
+        GroupNames.add(groupName);
     }
 
     public String getEmail_address() {
@@ -60,14 +75,6 @@ public class User {
         return user_password;
     }
 
-    public String isAdmin() {
-        return isAdmin;
-    }
-
-    public String isDeleted() {
-        return isDeleted;
-    }
-
     public void setEmail_address(String email_address) {
         this.email_address = email_address;
     }
@@ -84,49 +91,16 @@ public class User {
         this.user_password = user_password;
     }
 
-    public void setAdmin(String admin) {
-        isAdmin = admin;
-    }
-
-    public void setDeleted(String deleted) {
-        isDeleted = deleted;
-    }
-
-
-    public JSONObject toJSON() throws JSONException {
-        JSONObject obj = new JSONObject();
-        obj.put("email",email_address);
-        obj.put("display name",display_name);
-        obj.put("country",country);
-        obj.put("user password",user_password);
-        obj.put("isAdmin",isAdmin);
-        obj.put("isDeleted",isDeleted);
-        obj.put("GroupNames",GroupNames);
-        return obj;
-    }
-
-    public Map<String,String> toMap() {
-        Map<String,String> obj = new HashMap<String,String>();
-        obj.put("email",email_address);
-        obj.put("display name",display_name);
-        obj.put("country",country);
-        obj.put("user password",user_password);
-        obj.put("isAdmin",isAdmin);
-        obj.put("isDeleted",isDeleted);
-        obj.put("GroupNames",GroupNames);
-        return obj;
-    }
 
     public int groupNumber(){
-        return CharMatcher.is(',').countIn(GroupNames)+1;
-
+        return getGroupNames().size();
     }
 
 
     public void uploadUser(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
-        db.collection("Users").document(newuser.getUid()).set(user.toMap());
+        db.collection("Users").document(newuser.getUid()).set(this);
     }
 
 }

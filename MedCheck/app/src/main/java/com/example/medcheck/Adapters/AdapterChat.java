@@ -44,7 +44,7 @@ public AdapterChat(Context context, List<com.example.medcheck.Message> chatList)
     @Override
     public void onBindViewHolder(@NonNull myHolder holder, int i) {
 // get data for messages
-    String message = chatList.get(i).getBody();
+    String message = chatList.get(i).getContent();
     String date = chatList.get(i).getSend_Date();
 
     //set Data

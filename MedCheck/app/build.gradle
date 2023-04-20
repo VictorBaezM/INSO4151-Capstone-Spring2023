@@ -31,6 +31,11 @@ android {
         viewBinding true
     }
 }
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute module('org.hamcrest:hamcrest-core:1.1') with module('junit:junit:4.10')
+    }
+}
 
 dependencies {
 
@@ -47,6 +52,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.1.0'
     implementation 'com.google.firebase:firebase-firestore:24.4.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'org.testng:testng:6.9.6'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

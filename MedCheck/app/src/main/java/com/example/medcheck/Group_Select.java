@@ -18,6 +18,15 @@ public class Group_Select extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_select);
+        //        new Thread(() -> {
+//            TestManager T = new TestManager();
+//            try {
+//                T.Test1();
+//            } catch (InterruptedException e) {throw new RuntimeException(e);} catch (
+//                    ExecutionException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }).start();
 
     }
 
@@ -28,9 +37,9 @@ public class Group_Select extends AppCompatActivity {
     }
 
     public void getNextActivity(){
-        if(!Login.user.getGroupNames().contains(Group_Hub_Activity.GroupName)){
-        Login.user.addGroupNames(Group_Hub_Activity.GroupName);
-        Login.user.uploadUser();
+        if(!Home_Activity.user.getGroupNames().contains(Group_Hub_Activity.GroupName)){
+        Home_Activity.user.addGroupNames(Group_Hub_Activity.GroupName);
+        Home_Activity.user.uploadUser();
         }
         startActivity(new Intent(Group_Select.this, Group_Hub_Activity.class));
         finish();

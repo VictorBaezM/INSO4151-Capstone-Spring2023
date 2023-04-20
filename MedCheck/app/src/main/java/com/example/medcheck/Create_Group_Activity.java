@@ -31,7 +31,7 @@ public class Create_Group_Activity extends AppCompatActivity {
     public void createGroup(View view) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Log.println(Log.INFO,"debug","Group ");
-        if(Login.user.groupNumber()+1>5){
+        if(Home_Activity.user.groupNumber()+1>5){
             Toast.makeText(Create_Group_Activity.this, "Maximum amount of groups reached", Toast.LENGTH_LONG).show();
             return;
         }
@@ -47,10 +47,10 @@ public class Create_Group_Activity extends AppCompatActivity {
 
                 }
                 Log.println(Log.INFO,"debug","Group name is available");
-                Group newGroup = new Group(GroupName.getText().toString(),Size.getText().toString(),GroupPassword.getText().toString());
+                Group newGroup = new Group(GroupName.getText().toString(),GroupPassword.getText().toString());
                 newGroup.uploadGroup();
-                Login.user.addGroupNames(GroupName.getText().toString());
-                Login.user.uploadUser();
+                Home_Activity.user.addGroupNames(GroupName.getText().toString());
+                Home_Activity.user.uploadUser();
                 startActivity(new Intent(Create_Group_Activity.this, Group_Hub_Activity.class));
                 finish();
 

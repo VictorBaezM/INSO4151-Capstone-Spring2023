@@ -27,7 +27,7 @@ public class View_Groups_Activity extends AppCompatActivity {
     }
 
     private void showOwnedGroups(){
-        Group.showOwnedGroups(Login.user,Buttons);
+        Group.showOwnedGroups(Home_Activity.user,Buttons);
     }
     private void initializeButtons(){
         Buttons = new ArrayList<>();

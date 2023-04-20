@@ -145,7 +145,6 @@
         android:layout_height="46dp"
 
         android:backgroundTint="#6b898e"
-        android:onClick="createUser"
         android:text="Create Account"
         android:textColor="#2b3739"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -35,19 +35,19 @@ public class ExampleUnitTest {
 
     @Test
     public void send100messages(){
-        Group G = new Group("TestGroup","10","P@$$W0rd");
+        Group G = new Group("TestGroup","P@$$W0rd");
         for (int i = 0; i < 100; i++) {
-            G.addMessage(new Message("User "+i,"This is my message subject "+i,"This is the body of message "+i));
+            G.addMessage(new Message("User "+i,"This is my message subject "+i));
         }
         assertEquals(100,G.getMessages().size());
     }
 
     @Test
     public void getMessageFromGroup(){
-        Message m1 = new Message("User "+1,"This is my message subject "+1,"This is the body of message "+1);
-        Message m2 = new Message("User "+2,"This is my message subject "+2,"This is the body of message "+2);
-        Message m3 = new Message("User "+3,"This is my message subject "+3,"This is the body of message "+3);
-        Group G = new Group("TestGroup","10","P@$$W0rd");
+        Message m1 = new Message("User "+1,"This is my message subject "+1);
+        Message m2 = new Message("User "+2,"This is my message subject "+2);
+        Message m3 = new Message("User "+3,"This is my message subject "+3);
+        Group G = new Group("TestGroup","P@$$W0rd");
         G.addMessage(m1);
         G.addMessage(m2);
         G.addMessage(m3);
