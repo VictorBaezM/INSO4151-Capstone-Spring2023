@@ -88,7 +88,7 @@ public class Chat_Activity extends AppCompatActivity {
                 String message = txtMessage.getText().toString();
 
                 if (!message.equals("")){
-                    Message chat = new Message(auth.getCurrentUser().getUid(), message,message);
+                    Message chat = new Message(auth.getCurrentUser().getUid(),message);
                     sendMessage(chat);
                 }else {
                     Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
