@@ -73,7 +73,6 @@ public class Chat_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         recyclerView = findViewById(R.id.recyclerView);
-
         txtMessage = findViewById(R.id.messageText);
         sendTxt = findViewById(R.id.send_icon);
         auth = FirebaseAuth.getInstance();
