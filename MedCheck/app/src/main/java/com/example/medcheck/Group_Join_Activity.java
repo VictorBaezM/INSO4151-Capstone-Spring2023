@@ -17,19 +17,22 @@ public class Group_Join_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.group_join);
+        //Creates a seperate thread that initializes all the buttons to the different group names.
+                new Thread(() -> {
+                ArrayList<Button> Buttons=new ArrayList<Button>();
+                Buttons.add(findViewById(R.id.GJ_Button_1));
+                Buttons.add(findViewById(R.id.GJ_Button_2));
+                Buttons.add(findViewById(R.id.GJ_Button_3));
+                Buttons.add(findViewById(R.id.GJ_Button_4));
+                Buttons.add(findViewById(R.id.GJ_Button_5));
+                Buttons.add(findViewById(R.id.GJ_Button_6));
+                Buttons.add(findViewById(R.id.GJ_Button_7));
+                Buttons.add(findViewById(R.id.GJ_Button_8));
+                Buttons.add(findViewById(R.id.GJ_Button_9));
+                Buttons.add(findViewById(R.id.GJ_Button_10));
+                Group.showFirst10Groups(Buttons);
+        }).start();
 
-        ArrayList<Button> Buttons=new ArrayList<Button>();
-        Buttons.add(findViewById(R.id.GJ_Button_1));
-        Buttons.add(findViewById(R.id.GJ_Button_2));
-        Buttons.add(findViewById(R.id.GJ_Button_3));
-        Buttons.add(findViewById(R.id.GJ_Button_4));
-        Buttons.add(findViewById(R.id.GJ_Button_5));
-        Buttons.add(findViewById(R.id.GJ_Button_6));
-        Buttons.add(findViewById(R.id.GJ_Button_7));
-        Buttons.add(findViewById(R.id.GJ_Button_8));
-        Buttons.add(findViewById(R.id.GJ_Button_9));
-        Buttons.add(findViewById(R.id.GJ_Button_10));
-        Group.showFirst10Groups(Buttons);
     }
 
     public void getPermission(View view){

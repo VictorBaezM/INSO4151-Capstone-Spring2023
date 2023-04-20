@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public class Group_Hub_Activity extends AppCompatActivity {
-    public static String GroupName;
+    public static Group group;
     TextView Messages;
+    public static String GroupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +19,12 @@ public class Group_Hub_Activity extends AppCompatActivity {
         ArrayList<TextView> Messages = new ArrayList<>();// If there are multiple text views this is the way to go.
         // TODO finish recycle view and display messages
         //Messages.add(findViewById(R.id.messageTv));
-
-        try {
-            Group.getMessagesFromGroup(GroupName,Group_Hub_Activity.this,Messages);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//
+//        try {
+////            Group.getMessagesFromGroup(GroupName,Group_Hub_Activity.this,Messages);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
 

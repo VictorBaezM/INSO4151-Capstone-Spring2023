@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class StartActivity extends AppCompatActivity {
     private Button login;
@@ -32,8 +34,10 @@ public class StartActivity extends AppCompatActivity {
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);
         auth = FirebaseAuth.getInstance();
+
         try {
-            User user = Data_Manager.readUserData(StartActivity.this);
+            User user = Data_Manager.readUserData();
+            Log.println(Log.INFO,"debug","The user loaded from disk is " + user.toString());
             if(user!=null){
                 try {
                     auth.signInWithEmailAndPassword(user.getEmail_address(), user.getUser_password()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
@@ -48,9 +52,9 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         } catch (IOException e) {
-
-        } catch (JSONException e) {
-
+        } catch (NullPointerException e) {
+        }catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         signup.setOnClickListener(new View.OnClickListener(){
             @Override

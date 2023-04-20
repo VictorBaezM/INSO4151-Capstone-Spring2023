@@ -74,44 +74,44 @@ public class Signup extends AppCompatActivity {
     }
 //TODO implement email verification on signup
     private void signupUser(String email, String password,String display_name,String country) {
-        pd.setMessage("please wait!");
-        pd.show();
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Signup.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
-                    User user =  new User(email,display_name,country,password,"false","false");
-                    user.setGroupNames("");
-                    FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (newuser!=null){
-                        Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
-                        Log.println(Log.INFO,"debug","User is valid and is User#" + newuser.getUid());
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                        db.collection("Users").document(newuser.getUid()).set(user.toMap());
-
-                    }
-                    else{
-                        Toast.makeText(Signup.this, "User is invalid", Toast.LENGTH_LONG).show();
-
-                    }
-                    try {
-                        Data_Manager.WriteUserData(user,Signup.this);
-                    }catch (Exception e){
-                        Toast.makeText(Signup.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-                    }
-                    Intent intent = new Intent(Signup.this, Home_Activity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                } else{
-                    Toast.makeText(Signup.this, "Signup failed", Toast.LENGTH_SHORT).show();
+//        pd.setMessage("please wait!");
+//        pd.show();
+        Log.println(Log.INFO,"debug","The credentials given are " +email +"/"+ display_name +"/"+ country+"/" +password);
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Signup.this, task -> {
+            if (task.isSuccessful()){
+                Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
+                User user =  new User(email,display_name,country,password);
+                Log.println(Log.INFO,"debug","Creating local user....");
+                FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
+                if (newuser!=null){
+                    Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
+                    Log.println(Log.INFO,"debug","User is valid and is User#" + newuser.getUid());
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    db.collection("Users").document(newuser.getUid()).set(user);
                 }
+                else{
+                    Toast.makeText(Signup.this, "User is invalid", Toast.LENGTH_LONG).show();
+
+                }
+                try {
+                    Data_Manager.WriteUserData(user);
+                }catch (Exception e){
+                    Toast.makeText(Signup.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                    Log.println(Log.INFO,"debug",e.getMessage());
+                }
+                Intent intent = new Intent(Signup.this, Home_Activity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            } else{
+                Log.println(Log.INFO,"debug","Task was not successful");
+                Toast.makeText(Signup.this, "Signup failed", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
+                Log.println(Log.INFO,"debug","Entered this method");
                 Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
