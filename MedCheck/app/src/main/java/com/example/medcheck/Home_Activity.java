@@ -28,12 +28,6 @@ public class Home_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-
-
-
-
-
-
     }
 
 
@@ -43,7 +37,7 @@ public class Home_Activity extends AppCompatActivity {
     }
 
     public void addAlarm(View view) {
-        startActivity(new Intent(Home_Activity.this, Pending_Implementation_Activity.class)); //Place holder for future alarm implementation
+        startActivity(new Intent(Home_Activity.this, Alarm_example.class)); //Place holder for future alarm implementation
         finish();
     }
 
