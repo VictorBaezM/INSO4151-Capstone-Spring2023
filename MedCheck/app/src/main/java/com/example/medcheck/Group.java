@@ -77,6 +77,7 @@ public class Group {
     public static void showFirst10Groups(ArrayList<Button> buttons) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Log.println(Log.INFO,"debug","Buttons "+buttons);
+            Monitor m = new Monitor();
             Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
                 if (task.isSuccessful()){
                     int count =0;
@@ -93,11 +94,11 @@ public class Group {
                             count++;}
                         Log.println(Log.INFO,"debug","This is message 1 in show first 10 groups");
     }}
-                Monitor.setMonitor2(1);
+                m.setMonitor2(1);
                 }});
         Tasks.whenAllComplete(Dref);
-        while(Monitor.Monitor2==0);
-        Monitor.Monitor2 = 0;
+        while(m.getMonitor2()==0);
+        m.setMonitor2(0);
         Log.println(Log.INFO,"debug","This is message 2 in show first 10 groups");
 
 
@@ -225,19 +226,24 @@ public class Group {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference Dref =  db.collection("Groups").document(name);
         AtomicReference<Group> group1 = new AtomicReference<>(new Group());
+        Monitor m = new Monitor();
         Task<DocumentSnapshot> var = Dref.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot doc = task.getResult();
                 if (doc.exists()) {
                     group1.set(doc.toObject(Group.class));
                     Log.println(Log.INFO,"debug","1The group acquired by the db is "+group1.toString());
-                    Monitor.setMonitor1(1);
+                    m.setMonitor1(1);
                 }
             }
         });
         Tasks.whenAllComplete(var);
-        while(Monitor.Monitor1==0);
-        Monitor.Monitor1 = 0;
+        while(m.getMonitor1()==0);
+        m.setMonitor1(0);
+        setGroupName(group1.get().getGroupName());
+        setMessages(group1.get().getMessages());
+        setGroupPassword(group1.get().getGroupPassword());
+        setAlarms(group1.get().getAlarms());
         Log.println(Log.INFO,"debug","2The group acquired by the db is "+group1.toString());
     }
 

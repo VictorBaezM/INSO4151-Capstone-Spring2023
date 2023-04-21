@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class View_Groups_Activity extends AppCompatActivity {
     Button Group_Displayed_1;
@@ -54,8 +55,19 @@ public class View_Groups_Activity extends AppCompatActivity {
 
     public void openGroupHub(View view){
         Group_Hub_Activity.GroupName = ((Button)view).getText().toString();
+        Chat_Activity.GroupName = ((Button)view).getText().toString();
+                new Thread(() -> {
+            try {
+                Chat_Activity.group = new Group();
+                Chat_Activity.group.getGroupFromDB(Chat_Activity.GroupName);
+                Chat_Activity.chatList = Chat_Activity.group.getMessages();
+            } catch (InterruptedException e) {throw new RuntimeException(e);} catch (
+                    ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
         Log.println(Log.INFO,"debug","Writing in log the following group name "+((Button)view).getText().toString());
-        startActivity(new Intent(View_Groups_Activity.this, Group_Hub_Activity.class));
+        startActivity(new Intent(View_Groups_Activity.this, Chat_Activity.class));
 
     }
 

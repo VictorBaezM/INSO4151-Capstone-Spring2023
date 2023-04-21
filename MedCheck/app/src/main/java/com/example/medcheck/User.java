@@ -103,4 +103,15 @@ public class User implements java.io.Serializable{
         db.collection("Users").document(newuser.getUid()).set(this);
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "email_address='" + email_address + '\'' +
+                ", display_name='" + display_name + '\'' +
+                ", country='" + country + '\'' +
+                ", user_password='" + user_password + '\'' +
+                ", GroupNames=" + GroupNames +
+                ", alarms=" + alarms +
+                '}';
+    }
 }
