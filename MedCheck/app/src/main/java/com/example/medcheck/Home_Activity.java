@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,8 +29,9 @@ public class Home_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        TextView welcomeText = findViewById(R.id.textView);
+        welcomeText.setText("Welcome back, " + user.getDisplay_name());
     }
-
 
     public void viewGroups(View view) {
         startActivity(new Intent(Home_Activity.this, View_Groups_Activity.class));
