@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="373dp"
+        android:layout_height="80dp"
+        android:backgroundTint="#6b898e"
+        android:text="Save"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        app:icon="@android:drawable/ic_menu_save"
+        app:iconGravity="textStart"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="474dp" />
+
     <TextView
         android:id="@+id/foo"
         android:layout_width="wrap_content"

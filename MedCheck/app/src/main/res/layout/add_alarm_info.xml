@@ -17,31 +17,42 @@
         android:textColor="#2b3739"
         android:textSize="24sp"
         app:iconGravity="textStart"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="377dp" />
+        android:onClick="changeView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.709" />
 
     <TextView
-        android:id="@+id/SearchGroup"
+        android:id="@+id/Date_Label"
         android:layout_width="75dp"
         android:layout_height="34dp"
+        android:layout_marginTop="48dp"
         android:text="Alarm"
         android:textSize="28sp"
-        tools:layout_editor_absoluteX="168dp"
-        tools:layout_editor_absoluteY="54dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextMedication"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextMedication"
         android:layout_width="273dp"
         android:layout_height="46dp"
         android:ems="10"
         android:hint="Medication Name"
         android:inputType="textPersonName"
         android:textColorHint="#989090"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="120dp" />
+        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.905" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/editTextDescription"
         android:layout_width="275dp"
         android:layout_height="198dp"
         android:ems="10"
@@ -49,7 +60,10 @@
         android:hint="Description"
         android:inputType="textMultiLine"
         android:textColorHint="#989090"
-        tools:layout_editor_absoluteX="69dp"
-        tools:layout_editor_absoluteY="166dp" />
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.897" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

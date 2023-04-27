@@ -33,12 +33,12 @@ public class Home_Activity extends AppCompatActivity {
 
     public void viewGroups(View view) {
         startActivity(new Intent(Home_Activity.this, View_Groups_Activity.class));
-        finish();
+
     }
 
     public void addAlarm(View view) {
-        startActivity(new Intent(Home_Activity.this, Alarm_example.class)); //Place holder for future alarm implementation
-        finish();
+        startActivity(new Intent(Home_Activity.this, View_Alarms_Activity.class)); //Place holder for future alarm implementation
+
     }
 
     public void LogOut(View view){
