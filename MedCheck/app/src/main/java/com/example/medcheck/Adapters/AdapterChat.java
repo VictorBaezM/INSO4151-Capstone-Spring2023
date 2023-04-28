@@ -1,80 +1,88 @@
 package com.example.medcheck.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.medcheck.Message;
 import com.example.medcheck.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
-public class AdapterChat extends RecyclerView.Adapter<AdapterChat.myHolder>{
+public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
-    private static final int MSG_TYPE_RIGHT = 0;
-    private static final int MSG_TYPE_LEFT = 1;
-    FirebaseUser fUser;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    Context context;
-    List<com.example.medcheck.Message> chatList;
-public AdapterChat(Context context, List<com.example.medcheck.Message> chatList){
-    this.context = context;
-    this.chatList = chatList;
-}
+    private static int MESSAGE_TYPE_MY_MESSAGE = 0;
+    private static int MESSAGE_TYPE_OTHER_MESSAGE = 1;
+
+    private Context context;
+    private ArrayList<Message> messageList;
+
+    public AdapterChat(Context context, ArrayList<Message> messageList,int MESSAGE_TYPE_MY_MESSAGE, int MESSAGE_TYPE_OTHER_MESSAGE) {
+        this.context = context;
+        this.messageList = messageList;
+        this.MESSAGE_TYPE_MY_MESSAGE = MESSAGE_TYPE_MY_MESSAGE;
+        this.MESSAGE_TYPE_OTHER_MESSAGE =MESSAGE_TYPE_OTHER_MESSAGE;
+
+    }
+
     @NonNull
     @Override
-    public myHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-
-    if (viewType == MSG_TYPE_RIGHT){
-        View view = LayoutInflater.from(context).inflate(R.layout.chat_right, viewGroup, false);
-        return new myHolder(view);
-    }else{
-        View view = LayoutInflater.from(context).inflate(R.layout.chat_left, viewGroup, false);
-        return new myHolder(view);
-    }
-
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == MESSAGE_TYPE_MY_MESSAGE) {
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_right, parent, false);
+            return new MyHolder(view);
+        } else {
+            View view = LayoutInflater.from(context).inflate(R.layout.chat_left, parent, false);
+            return new MyHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myHolder holder, int i) {
-// get data for messages
-    String message = chatList.get(i).getContent();
-    String date = chatList.get(i).getSend_Date();
+    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        String message = messageList.get(position).getContent();
+        String timestamp = messageList.get(position).getSend_Time();
 
-    //set Data
         holder.messageTv.setText(message);
-        holder.timeTv.setText(date);
-
+        holder.timeTv.setText(timestamp);
     }
 
     @Override
     public int getItemCount() {
-        return chatList.size();
-    }
-    public int getItemViewType(int position){
-    fUser = FirebaseAuth.getInstance().getCurrentUser();
-    if (chatList.get(position).getUid().equals(fUser.getUid())){
-        return MSG_TYPE_RIGHT;
-    }else {
-        return MSG_TYPE_LEFT;
-    }
+        return messageList.size();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (messageList.get(position).getUid() == auth.getUid()) {
+            return MESSAGE_TYPE_MY_MESSAGE;
+        } else {
+            return MESSAGE_TYPE_OTHER_MESSAGE;
+        }
+    }
 
-    class myHolder extends RecyclerView.ViewHolder{
+    class MyHolder extends RecyclerView.ViewHolder {
+
         TextView messageTv, timeTv;
 
-        public myHolder(@NonNull View itemView) {
+        public MyHolder(@NonNull View itemView) {
             super(itemView);
-            timeTv = itemView.findViewById(R.id.timeTv);
-            messageTv = itemView.findViewById(R.id.messageTv);
 
+            messageTv = itemView.findViewById(R.id.messageTv);
+            timeTv = itemView.findViewById(R.id.timeTv);
         }
     }
 }

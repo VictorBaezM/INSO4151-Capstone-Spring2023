@@ -82,7 +82,7 @@ public class Chat_Activity extends AppCompatActivity {
         sendTxt = findViewById(R.id.send_icon);
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        adapterChat = new AdapterChat(this, chatList);
+        adapterChat = new AdapterChat(this, chatList, R.layout.chat_right, R.layout.chat_left);
         loadMessages();
 
         recyclerView.setAdapter(adapterChat);
@@ -112,6 +112,7 @@ public class Chat_Activity extends AppCompatActivity {
            while(group==null);
            FirebaseFirestore db = FirebaseFirestore.getInstance();
            group.addMessage(chat);
+           adapterChat.notifyItemInserted(chatList.size()-1);
            db.collection("Groups").document(group.getGroupName()).set(group);
 
     }
