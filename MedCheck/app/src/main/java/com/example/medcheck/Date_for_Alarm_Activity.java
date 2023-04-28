@@ -11,7 +11,7 @@ public class Date_for_Alarm_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.date_for_alarm);
+        setContentView(R.layout.add_alarm_date);
 
     }
 

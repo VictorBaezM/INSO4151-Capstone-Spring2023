@@ -221,7 +221,7 @@
         app:layout_constraintTop_toBottomOf="@+id/GJ_Button_4" />
 
     <TextView
-        android:id="@+id/SearchGroup"
+        android:id="@+id/Date_Label"
         android:layout_width="121dp"
         android:layout_height="29dp"
         android:text="Search Groups:"

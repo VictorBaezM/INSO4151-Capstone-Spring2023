@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="#abdbe3"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="146dp"
+        android:layout_height="92dp"
+
+        android:backgroundTint="#6b898e"
+        android:onClick="closeWindow"
+        android:text="Return"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.786" />
+
+    <Button
+        android:id="@+id/Delete_Alarm_Button"
+        android:layout_width="146dp"
+        android:layout_height="92dp"
+
+        android:backgroundTint="@color/design_default_color_error"
+        android:onClick="deleteAlarm"
+        android:text="Delete"
+        android:textColor="#2b3739"
+        android:textSize="24sp"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.785" />
+
+    <TextView
+        android:id="@+id/Alarm_Info_Label"
+        android:layout_width="132dp"
+        android:layout_height="44dp"
+        android:text="Alarm Info"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/AlarmDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75" />
+
+    <TextView
+        android:id="@+id/AlarmDetails"
+        android:layout_width="239dp"
+        android:layout_height="185dp"
+        android:layout_marginBottom="56dp"
+        android:text="Alarm title:\nAlarm Description\nDate:\nTime:\nRepeats:"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

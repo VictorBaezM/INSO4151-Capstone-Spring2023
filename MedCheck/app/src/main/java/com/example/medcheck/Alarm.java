@@ -5,10 +5,11 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Alarm {
+public class Alarm implements Serializable {
     String Owner;String Medication;String Description;String Date;String Time;String Repeats;
 
     public Alarm(){}
@@ -93,6 +94,10 @@ Alarm{Owner=Bob\Medication=Panadol\Description=Take with food\Date=10/05/1990\Ti
                 ", Time='" + Time + '\'' +
                 ", Repeats='" + Repeats + '\'' +
                 '}';
+    }
+
+    public String alarmInfo(){
+        return "Alarm title: "+Medication+"\nAlarm Description: "+Description+"\nDate: "+Date+"\nTime: " +Time+"\nRepeats: " +Repeats;
     }
     //Creates a JSON Object from alarm with the following format
 /*
