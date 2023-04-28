@@ -80,6 +80,8 @@
         <activity
             android:name=".Pending_Implementation_Activity"
             android:exported="true" />
+        <activity android:name=".MessageListActivity" />
+
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.medcheck.Adapters.AdapterChat;
+import com.example.medcheck.Adapters.MessageListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
@@ -35,38 +36,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class Chat_Activity extends AppCompatActivity {
-    public static ArrayList<Message> chatList = new ArrayList<>();
+    public static ArrayList<Message> chatList;
     public static String GroupName;
     public static Group group;
 
-    private void loadMessages() {
-        // TODO get reference to all messages in the group and load them
-        Log.println(Log.INFO,"debug","Entered here1");
-        DocumentReference ref = db.collection("Groups").document(GroupName);
-        ref.addSnapshotListener((snapshot, e) -> {
-            if (e != null) {
-                Log.println(Log.INFO,"debug","An error has occurred " +e.getMessage());
-
-                return;
-            }
-
-            if (snapshot != null && snapshot.exists()) {
-                Group g = new Group();
-                g = snapshot.toObject(Group.class);
-                Log.println(Log.INFO,"debug","An event ocurred" + g.toString());
-                chatList = g.getMessages();
-                Log.println(Log.INFO,"debug","chatlist messages are" + chatList.toString());
-                adapterChat.notifyDataSetChanged();
-
-            } else {
-                Log.println(Log.INFO,"debug","An event ocurred but something went wrong");
-            }
-        });
-
-    }
 
     TextView txtMessage;
-    AdapterChat adapterChat;
+    MessageListAdapter adapterChat;
     ImageButton sendTxt;
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -76,17 +52,19 @@ public class Chat_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        chatList= new ArrayList<>();
         setContentView(R.layout.activity_chat);
         recyclerView = findViewById(R.id.recyclerView);
         txtMessage = findViewById(R.id.messageText);
         sendTxt = findViewById(R.id.send_icon);
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        adapterChat = new AdapterChat(this, chatList, R.layout.chat_right, R.layout.chat_left);
         loadMessages();
+        adapterChat = new MessageListAdapter(this, chatList);
 
-        recyclerView.setAdapter(adapterChat);
         recyclerView.setLayoutManager(new LinearLayoutManager(Chat_Activity.this));
+        recyclerView.setAdapter(adapterChat);
+
 
         sendTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,13 +85,40 @@ public class Chat_Activity extends AppCompatActivity {
             }
         });
     }
+    private void loadMessages() {
+        // TODO get reference to all messages in the group and load them
+        Log.println(Log.INFO,"debug","Entered here1");
+        DocumentReference ref = db.collection("Groups").document(GroupName);
+        ref.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                Log.println(Log.INFO,"debug","An error has occurred " +e.getMessage());
+
+                return;
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                Group g = new Group();
+                g = snapshot.toObject(Group.class);
+                Log.println(Log.INFO,"debug","An event ocurred" + g.toString());
+                for (Message m:g.getMessages()
+                     ) {
+                    chatList.add(m);
+                }
+                Log.println(Log.INFO,"debug","chatlist messages are" + chatList.toString());
+                adapterChat.notifyDataSetChanged();
+
+            } else {
+                Log.println(Log.INFO,"debug","An event ocurred but something went wrong");
+            }
+        });
+
+    }
 
     private void sendMessage(Message chat) throws InterruptedException {
            while(group==null);
            FirebaseFirestore db = FirebaseFirestore.getInstance();
+           db.collection("Groups").document(group.getGroupName()).set(group);
            group.addMessage(chat);
            adapterChat.notifyItemInserted(chatList.size()-1);
-           db.collection("Groups").document(group.getGroupName()).set(group);
-
     }
 }

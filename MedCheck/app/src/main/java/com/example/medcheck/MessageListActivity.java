@@ -28,6 +28,7 @@ public class MessageListActivity extends AppCompatActivity {
         Log.println(Log.INFO,"debug","User id is " + auth.getUid());
 
         messageList = new ArrayList<Message>();
+        messageList.add(new Message("23","por favor funciona"));
 
         // Add messages to the list
 
