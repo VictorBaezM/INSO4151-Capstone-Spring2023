@@ -87,7 +87,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             super(itemView);
 
             messageText = (TextView) itemView.findViewById(R.id.text_gchat_message_me);
-            timeText = (TextView) itemView.findViewById(R.id.text_gchat_timestamp_other);
+            timeText = (TextView) itemView.findViewById(R.id.text_gchat_timestamp_me);
         }
 
         void bind(Message message) {

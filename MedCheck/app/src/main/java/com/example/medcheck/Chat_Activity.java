@@ -32,6 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -60,7 +61,7 @@ public class Chat_Activity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         loadMessages();
-        adapterChat = new MessageListAdapter(this, chatList);
+        adapterChat = new MessageListAdapter(this, reverse(chatList));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(Chat_Activity.this));
         recyclerView.setAdapter(adapterChat);
@@ -85,13 +86,17 @@ public class Chat_Activity extends AppCompatActivity {
             }
         });
     }
+    private ArrayList<Message> reverse(ArrayList<Message> chatList){
+        Collections.reverse(chatList);
+        return chatList;
+    }
     private void loadMessages() {
         // TODO get reference to all messages in the group and load them
-        Log.println(Log.INFO,"debug","Entered here1");
+       // Log.println(Log.INFO,"debug","Entered here1");
         DocumentReference ref = db.collection("Groups").document(GroupName);
         ref.addSnapshotListener((snapshot, e) -> {
             if (e != null) {
-                Log.println(Log.INFO,"debug","An error has occurred " +e.getMessage());
+               // Log.println(Log.INFO,"debug","An error has occurred " +e.getMessage());
 
                 return;
             }
@@ -99,26 +104,27 @@ public class Chat_Activity extends AppCompatActivity {
             if (snapshot != null && snapshot.exists()) {
                 Group g = new Group();
                 g = snapshot.toObject(Group.class);
-                Log.println(Log.INFO,"debug","An event ocurred" + g.toString());
+               // Log.println(Log.INFO,"debug","An event ocurred" + g.toString());
                 for (Message m:g.getMessages()
                      ) {
                     chatList.add(m);
                 }
-                Log.println(Log.INFO,"debug","chatlist messages are" + chatList.toString());
+                reverse(chatList);
+             //   Log.println(Log.INFO,"debug","chatlist messages are" + chatList.toString());
                 adapterChat.notifyDataSetChanged();
 
             } else {
-                Log.println(Log.INFO,"debug","An event ocurred but something went wrong");
+          //      Log.println(Log.INFO,"debug","An event ocurred but something went wrong");
             }
         });
 
     }
 
     private void sendMessage(Message chat) throws InterruptedException {
-           while(group==null);
            FirebaseFirestore db = FirebaseFirestore.getInstance();
-           db.collection("Groups").document(group.getGroupName()).set(group);
            group.addMessage(chat);
            adapterChat.notifyItemInserted(chatList.size()-1);
+           db.collection("Groups").document(group.getGroupName()).set(group);
+
     }
 }
