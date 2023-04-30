@@ -11,10 +11,8 @@
         android:id="@+id/Create_Alarm_Button"
         android:layout_width="178dp"
         android:layout_height="148dp"
-        android:backgroundTint="#6b898e"
         android:onClick="switchView"
         android:text="Create Alarm"
-        android:textColor="#2b3739"
         android:textSize="24sp"
         app:icon="@android:drawable/ic_input_add"
         app:iconGravity="textStart"
@@ -126,6 +124,7 @@
         android:layout_height="41dp"
 
         android:text="Your Alarms"
+        android:textColor="@color/black"
         android:textSize="28sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

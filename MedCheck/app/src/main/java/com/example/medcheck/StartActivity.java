@@ -10,18 +10,18 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarMenu;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 public class StartActivity extends AppCompatActivity {
     private Button login;
     private Button signup;
+
+    //private BottomNavigationView navigationBar;
 
     private FirebaseAuth auth;
 
@@ -33,6 +33,7 @@ public class StartActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);
+        //navigationBar = findViewById(R.id.button_navigation);
         auth = FirebaseAuth.getInstance();
 
         try {
