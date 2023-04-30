@@ -6,11 +6,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Alarm implements Serializable {
-    String Owner;String Medication;String Description;String Date;String Time;String Repeats;
+    String Owner;String Medication;String Description;String Date;String Time;
+    String Repeats;
 
     public Alarm(){}
 
@@ -23,13 +25,13 @@ public class Alarm implements Serializable {
     Time = holds the time set for the alarm to go of
     Repeats = stores weather the alarm repeats.
      */
-    public Alarm(String owner,String medication, String description, String date, String time, String repeats) {
+    public Alarm(String owner,String medication, String description, String date, String time ) {
         Owner = owner;
         Medication = medication;
         Description = description;
         Date = date;
         Time = time;
-        Repeats = repeats;
+        Repeats = "";
     }
 
     public String getOwner() {
@@ -76,8 +78,37 @@ public class Alarm implements Serializable {
         return Repeats;
     }
 
+    public String addRepeat(String repeat) {
+        if(Repeats.length()<1){
+            Repeats = repeat;
+        }else{
+            Repeats = Repeats +","+repeat;
+        }
+        return Repeats;
+    }
+
     public void setRepeats(String repeats) {
         Repeats = repeats;
+    }
+
+    public String getYear() {
+        return Date.substring(6);
+    }
+
+    public String getMonth() {
+        return Date.substring(3,5);
+    }
+
+    public String getDay() {
+        return Date.substring(0,2);
+    }
+
+    public String getHour() {
+        return Time.substring(0,2);
+    }
+
+    public String getMinute() {
+        return Time.substring(3);
     }
     //Creates a string from alarm with the following format
 /*
@@ -118,35 +149,6 @@ Alarm{Owner=Bob\Medication=Panadol\Description=Take with food\Date=10/05/1990\Ti
         obj.put("Repeats",getRepeats());
         return obj;
     }
-    //Maps an alarm with the following format
-/*
-    Owner = Bob
-    Medication = Panadol
-    Description = Take with food
-    Date = 10/05/1990
-    Time = 13:30
-    Repeats = N/A
- */
-    public Map<String,String> toMap() {
-        Map<String,String> obj = new HashMap<String,String>();
-        obj.put("Owner",getOwner());
-        obj.put("Medication",getMedication());
-        obj.put("Description",getDescription());
-        obj.put("Date",getDate());
-        obj.put("Time",getTime());
-        obj.put("Repeats",getRepeats());
-        return obj;
-    }
-    //Returns an Alarm object from a Map<String,String>
-    public static Alarm fromMap(Map<String,String> map){
-        Log.println(Log.INFO,"debug","The alarm map received is "+map);
-        Alarm alarm= new Alarm();
-        alarm.setOwner(map.get("Owner"));
-        alarm.setMedication(map.get("Medication"));
-        alarm.setDescription(map.get("Description"));
-        alarm.setDate(map.get("Date"));
-        alarm.setTime(map.get("Time"));
-        alarm.setRepeats(map.get("Repeats"));
-        return alarm;
-    }
+
+
 }

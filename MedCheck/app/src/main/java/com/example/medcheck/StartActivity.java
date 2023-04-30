@@ -70,6 +70,9 @@ public class StartActivity extends AppCompatActivity {
         });
 
     }
+
+
+
     public void getNextActivity(){
         startActivity(new Intent(StartActivity.this, Home_Activity.class));
         finish();

@@ -28,6 +28,7 @@ public class View_Alarms_Activity extends AppCompatActivity {
                 b.setText(a.getMedication()+" "+a.getDate()+" "+a.getTime());
                 b.setVisibility(View.VISIBLE);
                 b.setEnabled(true);
+                count++;
             }
             else break;
         }

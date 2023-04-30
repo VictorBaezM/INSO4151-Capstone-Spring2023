@@ -44,9 +44,9 @@ public class TestManager {
         Group1.addMessage(Message1);
         Group1.addMessage(Message2);
         Group1.addMessage(Message3);
-        Alarm Alarm1 =  new Alarm("Pedro","Epinephrine","must take with food","15/10/2200","13:20","N/A");
-        Alarm Alarm2 =  new Alarm("Maria","Advil","","15/11/2200","16:30","N/A");
-        Alarm Alarm3 =  new Alarm("Tito","Panadol","must take with food and water","12/12/2200","14:20","N/A");
+        Alarm Alarm1 =  new Alarm("Pedro","Epinephrine","must take with food","15/10/2200","13:20");
+        Alarm Alarm2 =  new Alarm("Maria","Advil","","15/11/2200","16:30");
+        Alarm Alarm3 =  new Alarm("Tito","Panadol","must take with food and water","12/12/2200","14:20");
         Group1.addAlarm(Alarm1);
         Group1.addAlarm(Alarm2);
         Group1.addAlarm(Alarm3);
