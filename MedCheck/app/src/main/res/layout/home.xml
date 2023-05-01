@@ -57,20 +57,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
-    <Button
-        android:id="@+id/Test_chat"
-        android:onClick="testChat"
-        android:layout_width="373dp"
-        android:layout_height="57dp"
-        android:backgroundTint="#6b898e"
-        android:text="Test chat"
-        android:layout_below="@id/button2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-
 
     <Button
         android:id="@+id/button3"
@@ -92,7 +78,6 @@
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Test_chat"
         android:layout_centerInParent="true"
         android:backgroundTint="#6b898e"
         android:onClick="LogOut"

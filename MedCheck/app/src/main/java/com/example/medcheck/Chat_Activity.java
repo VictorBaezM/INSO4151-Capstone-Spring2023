@@ -121,5 +121,5 @@ public class Chat_Activity extends AppCompatActivity {
         });
 
     }
-    
+
 }
