@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="#abdbe3"
     tools:context=".StartActivity">
 
     <FrameLayout
@@ -15,29 +17,31 @@
         tools:layout_editor_absoluteY="-84dp" />
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttons"
         android:layout_alignParentBottom="true"
         tools:ignore="MissingConstraints" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/button_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button_navigation"
+        android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector"
         app:labelVisibilityMode="unlabeled"
-        android:background="?android:attr/windowBackground"
         app:menu="@menu/button_menu"
         tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="350dp"
         android:layout_height="70dp"
         android:text="Welcome to MedCheck!"
         android:textSize="32dp"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,27 +50,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LogIn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signup"
         app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintVertical_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintVertical_bias="0.1"
 
-         />
+        />
 
     <Button
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SignUp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.53"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toBottomOf="@id/welcome"
         app:layout_constraintStart_toEndOf="@id/login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteY="435dp"
-         />
+        app:layout_constraintTop_toBottomOf="@id/welcome"
+        app:layout_constraintVertical_bias="0.1"
+        tools:layout_editor_absoluteY="435dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

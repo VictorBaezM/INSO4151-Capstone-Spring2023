@@ -1,5 +1,7 @@
 package com.example.medcheck;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,20 +19,34 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Home_Activity extends AppCompatActivity {
 
     public static User user;
-
-    public static ArrayList<Message> messages = new ArrayList<>();
+    AlarmManager alarmManager;
+//    PendingIntent pendingIntent;
+//    public static ArrayList<Message> messages = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
         TextView welcomeText = findViewById(R.id.textView);
         welcomeText.setText("Welcome back, " + user.getDisplay_name());
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        setupAlarms();
+    }
+
+    public void setupAlarms(){
+        ArrayList<Alarm> alarms = user.getAlarms();
+        int size = alarms.size();
+        Alarm_Scheduler alarm_scheduler = new Alarm_Scheduler();
+        for (int i = 0; i < size ; i++) {
+            Alarm alarm = alarms.get(i);
+            alarm_scheduler.setUpAlarm(this,i,alarm);
+        }
     }
 
     public void viewGroups(View view) {

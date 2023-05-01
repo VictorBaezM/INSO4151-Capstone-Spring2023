@@ -148,34 +148,7 @@ public class Group  implements Serializable {
         return alarms.add(a);
     }
 
-    //Maps a group with the following format
-    //GroupName = ExampleName
-    //GroupPassword = ExamplePassword
-    //Message 1 = Message Object
-    //Message 2 = Message Object
-    //...
-    //Message n = Message Object
-    //Alarm 1 = Alarm Object
-    //Alarm 2 = Alarm Object
-    //...
-    //Alarm n = Alarm Object
-    //*Firebase changes this to alphabetical order*
-    public Map<String,String> toMap() {
-        Map<String,String> obj = new HashMap<String,String>();
-        int count = 0;
-        int count1 = 0;
-        obj.put("GroupName",GroupName);
-        obj.put("GroupPassword",GroupPassword);
-        for (Message m:messages){
-            obj.put("Message "+ count,m.toMap().toString());
-            count++;
-        }
-        for (Alarm a:alarms){
-            obj.put("Alarm "+ count1,a.toMap().toString());
-            count1++;
-        }
-        return obj;
-    }
+
 
     //Converts the current group into a map and uploads it to the db
 
