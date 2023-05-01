@@ -18,8 +18,9 @@ public class Message {
     private String User_Name;
 
 
-    public Message(String Uid,String Content){
+    public Message(String Uid,String User_Name,String Content){
         this.Uid = Uid;
+        this.User_Name = User_Name;
         this.Content =Content;
         SimpleDateFormat SDF =  new SimpleDateFormat("dd/MM/yyyy");
         Calendar c = Calendar.getInstance();
@@ -48,6 +49,13 @@ public class Message {
 
     public void setUid(String uid) {
         Uid = uid;
+    }
+    public String getUser_Name() {
+        return Uid;
+    }
+
+    public void setUser_Name(String username) {
+        Uid = username;
     }
 
     public String getSend_Date() {

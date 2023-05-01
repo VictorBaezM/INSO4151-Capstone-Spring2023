@@ -38,9 +38,9 @@ public class TestManager {
     //Then it downloads the version present in the database and compares the two.
     public void Test1() throws InterruptedException, ExecutionException {
         Group Group1 =  new Group("LosCampeones","LosIntentos");
-        Message Message1 = new Message("Pedro","This is pedro wishing you all a good day");
-        Message Message2 = new Message("Maria","Remember to take you medication");
-        Message Message3 = new Message("Julie","On it");
+        Message Message1 = new Message("Pedro","","This is pedro wishing you all a good day");
+        Message Message2 = new Message("Maria","","Remember to take you medication");
+        Message Message3 = new Message("Julie","","On it");
         Group1.addMessage(Message1);
         Group1.addMessage(Message2);
         Group1.addMessage(Message3);

@@ -56,7 +56,7 @@ public class Chat_Activity extends AppCompatActivity {
                 String message = txtMessage.getText().toString();
 
                 if (!message.equals("")){
-                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
+                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(),auth.getCurrentUser().getDisplayName(), message);
                     try {
                         sendMessage(chat);
                     } catch (InterruptedException e) {

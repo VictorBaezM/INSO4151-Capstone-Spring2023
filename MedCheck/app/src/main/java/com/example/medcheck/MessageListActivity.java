@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MessageListActivity extends AppCompatActivity {
     private RecyclerView mMessageRecycler;
@@ -28,7 +29,6 @@ public class MessageListActivity extends AppCompatActivity {
         Log.println(Log.INFO,"debug","User id is " + auth.getUid());
 
         messageList = new ArrayList<Message>();
-        messageList.add(new Message("23","por favor funciona"));
 
         // Add messages to the list
 
