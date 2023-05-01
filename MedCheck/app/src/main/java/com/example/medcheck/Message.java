@@ -15,6 +15,7 @@ public class Message {
     private String Content;
     private String Send_Date;
     private String Send_Time;
+    private String User_Name;
 
 
     public Message(String Uid,String Content){

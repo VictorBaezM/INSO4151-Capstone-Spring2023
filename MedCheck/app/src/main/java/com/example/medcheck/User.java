@@ -1,12 +1,20 @@
 package com.example.medcheck;
 
+import android.util.Log;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public class User implements java.io.Serializable{
@@ -103,6 +111,27 @@ public class User implements java.io.Serializable{
         db.collection("Users").document(newuser.getUid()).set(this);
     }
 
+    public String getUserFromDB(String id) throws ExecutionException, InterruptedException {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference Dref = db.collection("Users").document(id);
+        AtomicReference<User> user1 = new AtomicReference<>(new User());
+        Monitor m = new Monitor();
+        Task<DocumentSnapshot> var = Dref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot doc = task.getResult();
+                if (doc.exists()) {
+                    user1.set(doc.toObject(User.class));
+                    Log.println(Log.INFO, "debug", "1The group acquired by the db is " + user1.toString());
+                    m.setMonitor1(1);
+                }
+            }
+        });
+        Tasks.whenAllComplete(var);
+        while (m.getMonitor1() == 0) ;
+        m.setMonitor1(0);
+
+        return user1.get().getDisplay_name();
+    }
     @Override
     public String toString() {
         return "User{" +
