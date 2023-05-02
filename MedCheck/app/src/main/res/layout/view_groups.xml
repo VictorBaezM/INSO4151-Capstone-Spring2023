@@ -7,6 +7,17 @@
     android:background="@color/black"
     android:backgroundTint="#abdbe3">
 
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/button_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/selector"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/button_menu"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="178dp"
@@ -146,7 +157,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_navigation"
         app:layout_constraintVertical_bias="0.031" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

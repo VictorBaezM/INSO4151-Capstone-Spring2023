@@ -56,12 +56,8 @@ public class Chat_Activity extends AppCompatActivity {
                 String message = txtMessage.getText().toString();
 
                 if (!message.equals("")){
-                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(),auth.getCurrentUser().getDisplayName(), message);
-                    try {
-                        sendMessage(chat);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
+                    sendMessage(chat);
                 }else {
                     Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
                 }
@@ -103,7 +99,7 @@ public class Chat_Activity extends AppCompatActivity {
 
     }
 
-    private void sendMessage(Message chat) throws InterruptedException {
+    private void sendMessage(Message chat){
            FirebaseFirestore db = FirebaseFirestore.getInstance();
            group.addMessage(chat);
            adapterChat.notifyItemInserted(chatList.size()-1);

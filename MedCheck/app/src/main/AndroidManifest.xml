@@ -41,9 +41,6 @@
             android:name=".Chat_Activity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".Signup"
             android:exported="false" />
         <activity
