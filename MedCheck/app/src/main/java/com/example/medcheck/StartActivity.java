@@ -21,6 +21,8 @@ public class StartActivity extends AppCompatActivity {
     private Button login;
     private Button signup;
 
+
+
     //private BottomNavigationView navigationBar;
 
     private FirebaseAuth auth;
@@ -33,6 +35,7 @@ public class StartActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);
+
         //navigationBar = findViewById(R.id.button_navigation);
         auth = FirebaseAuth.getInstance();
 

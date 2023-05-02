@@ -54,20 +54,10 @@ public class View_Groups_Activity extends AppCompatActivity {
     }
 
     public void openGroupHub(View view){
-        Group_Hub_Activity.GroupName = ((Button)view).getText().toString();
-        Chat_Activity.GroupName = ((Button)view).getText().toString();
-                new Thread(() -> {
-            try {
-                Chat_Activity.group = new Group();
-                Chat_Activity.group.getGroupFromDB(Chat_Activity.GroupName);
-                Chat_Activity.chatList = Chat_Activity.group.getMessages();
-            } catch (InterruptedException e) {throw new RuntimeException(e);} catch (
-                    ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        }).start();
-        Log.println(Log.INFO,"debug","Writing in log the following group name "+((Button)view).getText().toString());
-        startActivity(new Intent(View_Groups_Activity.this, Chat_Activity.class));
+        Intent i = new Intent(this, Chat_Activity.class);
+        i.putExtra("GroupName",((Button)view).getText().toString());
+        Log.println(Log.INFO,"debug","Writing in log the following group name "+i.getExtras().getString("GroupName"));
+        startActivity(i);
 
     }
 

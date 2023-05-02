@@ -1,6 +1,7 @@
 package com.example.medcheck;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -11,22 +12,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medcheck.Adapters.MessageListAdapter;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Chat_Activity extends AppCompatActivity {
     public static ArrayList<Message> chatList;
-    public static String GroupName;
-    public static Group group;
+    public String GroupName;
 
+    AtomicReference<Group> group;
 
     TextView txtMessage;
-    MessageListAdapter adapterChat;
+    MessageListAdapter MessageListAdapter;
     ImageButton sendTxt;
     FirebaseAuth auth;
     FirebaseFirestore db;
@@ -43,11 +47,13 @@ public class Chat_Activity extends AppCompatActivity {
         sendTxt = findViewById(R.id.send_icon);
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        group = new AtomicReference<>(new Group());
+        GroupName = (String) getIntent().getExtras().get("GroupName");
         loadMessages();
-        adapterChat = new MessageListAdapter(this, reverse(chatList));
+        MessageListAdapter = new MessageListAdapter(this, reverse(chatList));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(Chat_Activity.this));
-        recyclerView.setAdapter(adapterChat);
+        recyclerView.setAdapter(MessageListAdapter);
 
 
         sendTxt.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +63,11 @@ public class Chat_Activity extends AppCompatActivity {
 
                 if (!message.equals("")){
                     Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
-                    sendMessage(chat);
+                    try {
+                        sendMessage(chat);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }else {
                     Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
                 }
@@ -70,40 +80,46 @@ public class Chat_Activity extends AppCompatActivity {
         return chatList;
     }
     private void loadMessages() {
-        // TODO get reference to all messages in the group and load them
-       // Log.println(Log.INFO,"debug","Entered here1");
         DocumentReference ref = db.collection("Groups").document(GroupName);
-        ref.addSnapshotListener((snapshot, e) -> {
-            if (e != null) {
-               // Log.println(Log.INFO,"debug","An error has occurred " +e.getMessage());
+        Task<DocumentSnapshot> var = ref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot doc = task.getResult();
+                if (doc.exists()) {
+                    group.set(doc.toObject(Group.class));
+                    chatList.addAll(group.get().getMessages());
+                    Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
+                    reverse(chatList);
+                    Log.println(Log.INFO,"debug","Got all messages from group on db and reversed"+chatList.toString());
+                    MessageListAdapter.notifyDataSetChanged();
 
-                return;
-            }
-
-            if (snapshot != null && snapshot.exists()) {
-                Group g = new Group();
-                g = snapshot.toObject(Group.class);
-               // Log.println(Log.INFO,"debug","An event ocurred" + g.toString());
-                for (Message m:g.getMessages()
-                     ) {
-                    chatList.add(m);
                 }
-                reverse(chatList);
-             //   Log.println(Log.INFO,"debug","chatlist messages are" + chatList.toString());
-                adapterChat.notifyDataSetChanged();
-
-            } else {
-          //      Log.println(Log.INFO,"debug","An event ocurred but something went wrong");
             }
         });
 
     }
 
-    private void sendMessage(Message chat){
-           FirebaseFirestore db = FirebaseFirestore.getInstance();
-           group.addMessage(chat);
-           adapterChat.notifyItemInserted(chatList.size()-1);
-           db.collection("Groups").document(group.getGroupName()).set(group);
+    private void sendMessage(Message chat) throws InterruptedException {
+        DocumentReference ref = db.collection("Groups").document(GroupName);
+        Task<DocumentSnapshot> var = ref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot doc = task.getResult();
+                if (doc.exists()) {
+                    group.set(doc.toObject(Group.class));
+                    chatList.addAll(group.get().getMessages());
+                    Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
+                    reverse(chatList);
+                    Log.println(Log.INFO,"debug","Got all messages from group on db and reversed"+chatList.toString());
+                    MessageListAdapter.notifyDataSetChanged();
+                    group.get().addMessage(chat);
+                    chatList.add(chat);
+                    reverse(chatList);
+                    MessageListAdapter.notifyItemInserted(chatList.size());
+                    group.get().uploadGroup();
+                    loadMessages();
+                }
+            }
+        });
 
     }
+
 }

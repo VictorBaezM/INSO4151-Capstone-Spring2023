@@ -1,10 +1,8 @@
 package com.example.medcheck;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,12 +16,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public class Group  implements Serializable {
 
@@ -79,7 +73,11 @@ public class Group  implements Serializable {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             Log.println(Log.INFO,"debug","Buttons "+buttons);
             Monitor m = new Monitor();
-            Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+            Task<QuerySnapshot> Dref =  db.collection("Groups").get()
+
+
+
+                    .addOnCompleteListener(task->{
                 if (task.isSuccessful()){
                     int count =0;
                     for (QueryDocumentSnapshot i:task.getResult()){
@@ -101,10 +99,23 @@ public class Group  implements Serializable {
         while(m.getMonitor2()==0);
         m.setMonitor2(0);
         Log.println(Log.INFO,"debug","This is message 2 in show first 10 groups");
+    }
 
+    public void searchGroup(String GName, Group_Join_Activity group_join_activity){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ArrayList<String> Groups = new ArrayList<>();
+        Task<QuerySnapshot> Dref =  db.collection("Groups").get().addOnCompleteListener(task->{
+                    if (task.isSuccessful()){
+                        for (QueryDocumentSnapshot i:task.getResult()){
+                            if (i.exists()) {
+                                String GroupName = (String) i.get("groupName");
 
-
-
+                                if(GroupName.contains(GName))
+                                    Groups.add(GroupName);
+                            }}
+                        Log.println(Log.INFO,"debug","These are the groups that match your query: "+Groups.toString());
+                        group_join_activity.showResults(Groups);
+                    }});
     }
 
     public ArrayList<Alarm> getAlarms() {
