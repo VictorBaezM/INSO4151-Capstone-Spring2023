@@ -99,10 +99,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     }
 
     private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
-        TextView messageText, timeText, nameText;
+        TextView messageText, timeText, nameText, dateText;
         ReceivedMessageHolder(View itemView) {
             super(itemView);
-
+            dateText = itemView.findViewById(R.id.text_gchat_date_other);
             messageText = itemView.findViewById(R.id.text_gchat_message_other);
             timeText =  itemView.findViewById(R.id.text_gchat_timestamp_other);
             nameText = itemView.findViewById(R.id.text_gchat_user_other);
@@ -111,8 +111,10 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         void bind(Message message) {
             messageText.setText(message.getContent());
 
+            dateText.setText(message.getSend_Date());
+
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSend_Date());
+            timeText.setText(message.getSend_Time());
 
             nameText.setText(message.getUid());
         }

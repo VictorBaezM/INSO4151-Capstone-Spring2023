@@ -5,44 +5,49 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.medcheck.Adapters.GroupListAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class View_Groups_Activity extends AppCompatActivity {
-    Button Group_Displayed_1;
-    Button Group_Displayed_2;
-    Button Group_Displayed_3;
-    Button Group_Displayed_4;
-    Button Group_Displayed_5;
-    ArrayList<Button> Buttons;
+    private FirebaseAuth auth;
+    private User user = new User();
+    private RecyclerView recyclerView;
+    private ArrayList<String> groupList;
+    private GroupListAdapter groupListAdapter;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_groups);
-        initializeButtons();
-        showOwnedGroups();
+        auth = FirebaseAuth.getInstance();
+        recyclerView = findViewById(R.id.recyclerView2);
+        db = FirebaseFirestore.getInstance();
+        groupList = new ArrayList<>();
+        for ( Object g: loadGroups()
+             ) {
+            groupList.add((String) g);
+        }
+        groupListAdapter = new GroupListAdapter(this, groupList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(groupListAdapter);
     }
 
-    private void showOwnedGroups(){
-        Group.showOwnedGroups(Home_Activity.user,Buttons);
+    private ArrayList loadGroups() {
+        return user.getGroupNames();
     }
-    private void initializeButtons(){
-        Buttons = new ArrayList<>();
-        Group_Displayed_1 = findViewById(R.id.JoinGroup);
-        Group_Displayed_2 = findViewById(R.id.Group_Displayed_2);
-        Group_Displayed_3 = findViewById(R.id.Group_Displayed_3);
-        Group_Displayed_4 = findViewById(R.id.Group_Displayed_4);
-        Group_Displayed_5 = findViewById(R.id.Group_Displayed_6);
-        Buttons.add(Group_Displayed_1);
-        Buttons.add(Group_Displayed_2);
-        Buttons.add(Group_Displayed_3);
-        Buttons.add(Group_Displayed_4);
-        Buttons.add(Group_Displayed_5);
-    }
+
+
     public void createGroup(View view) {
         startActivity(new Intent(View_Groups_Activity.this, Create_Group_Activity.class));
         finish();
@@ -53,12 +58,12 @@ public class View_Groups_Activity extends AppCompatActivity {
         finish();
     }
 
-    public void openGroupHub(View view){
+    public void openGroupHub(View view) {
+        int position = recyclerView.getChildAdapterPosition(view);
+        String groupName = groupList.get(position);
         Intent i = new Intent(this, Chat_Activity.class);
-        i.putExtra("GroupName",((Button)view).getText().toString());
-        Log.println(Log.INFO,"debug","Writing in log the following group name "+i.getExtras().getString("GroupName"));
+        i.putExtra("GroupName", groupName);
+        Log.d("View_Groups_Activity", "Opening group: " + groupName);
         startActivity(i);
-
     }
-
 }

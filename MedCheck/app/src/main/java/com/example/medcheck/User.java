@@ -111,7 +111,7 @@ public class User implements java.io.Serializable{
         db.collection("Users").document(newuser.getUid()).set(this);
     }
 
-    public String getUserFromDB(String id) throws ExecutionException, InterruptedException {
+    public User getUserFromDB(String id) throws ExecutionException, InterruptedException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference Dref = db.collection("Users").document(id);
         AtomicReference<User> user1 = new AtomicReference<>(new User());
@@ -130,7 +130,7 @@ public class User implements java.io.Serializable{
         while (m.getMonitor1() == 0) ;
         m.setMonitor1(0);
 
-        return user1.get().getDisplay_name();
+        return user1.get();
     }
     @Override
     public String toString() {

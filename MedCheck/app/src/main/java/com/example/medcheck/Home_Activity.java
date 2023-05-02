@@ -58,10 +58,6 @@ public class Home_Activity extends AppCompatActivity {
         startActivity(new Intent(Home_Activity.this, View_Alarms_Activity.class)); //Place holder for future alarm implementation
 
     }
-    public void testChat(View view) {
-        startActivity(new Intent(Home_Activity.this, MessageListActivity.class));
-        finish();
-    }
 
     public void LogOut(View view){
 
