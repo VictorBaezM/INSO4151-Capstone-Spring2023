@@ -1,10 +1,9 @@
 package com.example.medcheck;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,27 +11,22 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Home_Activity extends AppCompatActivity {
 
     public static User user;
     AlarmManager alarmManager;
+
+    static Context GlobalContext;
 //    PendingIntent pendingIntent;
 //    public static ArrayList<Message> messages = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        GlobalContext = getApplicationContext();
         TextView welcomeText = findViewById(R.id.textView);
         welcomeText.setText("Welcome back, " + user.getDisplay_name());
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);

@@ -104,6 +104,17 @@ public class User implements java.io.Serializable{
         return getGroupNames().size();
     }
 
+    public ArrayList<String> getAlarmsInfo(){
+        ArrayList<String> AlarmsInfo = new ArrayList<String>();
+        int count =0;
+        for (Alarm a: alarms) {
+            AlarmsInfo.add(count+" "+a.getMedication()+" "+a.getDate()+" "+a.getTime());
+            count++;
+        }
+        Log.println(Log.INFO, "debug", "The alarms are " + AlarmsInfo.toString());
+        return AlarmsInfo;
+
+    }
 
     public void uploadUser(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

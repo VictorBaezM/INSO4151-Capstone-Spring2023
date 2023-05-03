@@ -33,8 +33,8 @@ public class Alarm_View_Activity extends AppCompatActivity {
 
     public void StopAlarm(View view){
         mp.stop();
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
+        Intent intent = new Intent(Home_Activity.GlobalContext, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(Home_Activity.GlobalContext, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
         alarmManager.cancel(pendingIntent);
         this.finish();
     }
