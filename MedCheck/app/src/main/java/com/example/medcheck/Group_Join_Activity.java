@@ -10,6 +10,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.medcheck.Adapters.GroupJoinAdapter;
+import com.example.medcheck.Adapters.GroupListAdapter;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -17,6 +23,9 @@ public class Group_Join_Activity extends AppCompatActivity {
 
     EditText SearchBar;
     ProgressBar LoadingIcon;
+    private RecyclerView recyclerView;
+    private ArrayList<String> groupList;
+    private GroupJoinAdapter groupJoinAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,29 +34,20 @@ public class Group_Join_Activity extends AppCompatActivity {
         SearchBar = findViewById(R.id.SearchBar);
         LoadingIcon = findViewById(R.id.Search_LoadIcon);
         LoadingIcon.setVisibility(View.VISIBLE);
-        //Creates a seperate thread that initializes all the buttons to the different group names.
-                new Thread(() -> {
-                ArrayList<Button> Buttons=new ArrayList<Button>();
-                Buttons.add(findViewById(R.id.GJ_Button_1));
-                Buttons.add(findViewById(R.id.GJ_Button_2));
-                Buttons.add(findViewById(R.id.GJ_Button_3));
-                Buttons.add(findViewById(R.id.GJ_Button_4));
-                Buttons.add(findViewById(R.id.GJ_Button_5));
-                Buttons.add(findViewById(R.id.GJ_Button_6));
-                Buttons.add(findViewById(R.id.GJ_Button_7));
-                Buttons.add(findViewById(R.id.GJ_Button_8));
-                Buttons.add(findViewById(R.id.GJ_Button_9));
-                Buttons.add(findViewById(R.id.GJ_Button_10));
-                Group.showFirst10Groups(Buttons);
-                LoadingIcon.setVisibility(View.INVISIBLE);
-        }).start();
+        recyclerView = findViewById(R.id.RecyclerView_GroupJoin);
+        groupList = new ArrayList<>();
+
+
+
+
 
     }
 
     public void getPermission(View view){
-        Group_Hub_Activity.GroupName = ((Button)view).getText().toString();
+        Intent i = new Intent(this, Group_Select.class);
+        i.putExtra("GroupName",((Button)view).getText().toString());
         Log.println(Log.INFO,"debug","Writing in log the following group name "+((Button)view).getText().toString());
-        startActivity(new Intent(Group_Join_Activity.this, Group_Select.class));
+        startActivity(i);
     }
 
     public void startSearch(View view){
@@ -60,6 +60,12 @@ public class Group_Join_Activity extends AppCompatActivity {
     //Method that runs when a search is executed
     //Contains a list of the names that apply for the search
     public void showResults(ArrayList<String> groups) {
+        groupList.clear();
+        groupList.addAll(groups);
+        groupJoinAdapter = new GroupJoinAdapter(this, groupList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(groupJoinAdapter);
+
         LoadingIcon.setVisibility(View.INVISIBLE);
     }
 }

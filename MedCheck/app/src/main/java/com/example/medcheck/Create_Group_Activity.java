@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -48,10 +49,13 @@ public class Create_Group_Activity extends AppCompatActivity {
                 }
                 Log.println(Log.INFO,"debug","Group name is available");
                 Group newGroup = new Group(GroupName.getText().toString(),GroupPassword.getText().toString());
+                newGroup.setAlarms(Home_Activity.user.getAlarms());
                 newGroup.uploadGroup();
                 Home_Activity.user.addGroupNames(GroupName.getText().toString());
                 Home_Activity.user.uploadUser();
-                startActivity(new Intent(Create_Group_Activity.this, Group_Hub_Activity.class));
+                Intent i = new Intent(this, Chat_Activity.class);
+                i.putExtra("GroupName",GroupName.getText().toString());
+                startActivity(i);
                 finish();
 
             }

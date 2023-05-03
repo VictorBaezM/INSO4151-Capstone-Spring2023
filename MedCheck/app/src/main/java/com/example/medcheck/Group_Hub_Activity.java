@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Group_Hub_Activity extends AppCompatActivity {
     public static Group group;
     TextView Messages;
-    public static String GroupName;
+//    public static String GroupName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

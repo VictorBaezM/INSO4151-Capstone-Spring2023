@@ -86,6 +86,7 @@ public class Chat_Activity extends AppCompatActivity {
                 DocumentSnapshot doc = task.getResult();
                 if (doc.exists()) {
                     group.set(doc.toObject(Group.class));
+                    chatList.clear();
                     chatList.addAll(group.get().getMessages());
                     Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
                     reverse(chatList);
@@ -105,14 +106,15 @@ public class Chat_Activity extends AppCompatActivity {
                 DocumentSnapshot doc = task.getResult();
                 if (doc.exists()) {
                     group.set(doc.toObject(Group.class));
+                    chatList.clear();
                     chatList.addAll(group.get().getMessages());
                     Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
                     reverse(chatList);
                     Log.println(Log.INFO,"debug","Got all messages from group on db and reversed"+chatList.toString());
                     MessageListAdapter.notifyDataSetChanged();
                     group.get().addMessage(chat);
-                    chatList.add(chat);
-                    reverse(chatList);
+//                    chatList.add(chat);
+//                    reverse(chatList);
                     MessageListAdapter.notifyItemInserted(chatList.size());
                     group.get().uploadGroup();
                     loadMessages();

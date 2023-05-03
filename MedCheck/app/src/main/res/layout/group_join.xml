@@ -8,180 +8,6 @@
     android:backgroundTint="#abdbe3"
     tools:context=".StartActivity">
 
-    <Button
-        android:id="@+id/GJ_Button_1"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 1"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline21"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline20" />
-
-    <Button
-        android:id="@+id/GJ_Button_2"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 2"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline22"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline21" />
-
-    <Button
-        android:id="@+id/GJ_Button_3"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 3"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline23"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline22" />
-
-    <Button
-        android:id="@+id/GJ_Button_4"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 4"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline24"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline23" />
-
-    <Button
-        android:id="@+id/GJ_Button_6"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 6"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline26"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline25" />
-
-    <Button
-        android:id="@+id/GJ_Button_7"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 7"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline27"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline26" />
-
-    <Button
-        android:id="@+id/GJ_Button_8"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 8"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline28"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline27" />
-
-    <Button
-        android:id="@+id/GJ_Button_9"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 9"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline29"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
-
-    <Button
-        android:id="@+id/GJ_Button_10"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 10"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-
-        app:layout_constraintBottom_toTopOf="@+id/guideline30"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline29" />
-
-    <Button
-        android:id="@+id/GJ_Button_5"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="getPermission"
-        android:text="Example Group 5"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25"
-        app:layout_constraintEnd_toStartOf="@+id/guideline17"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline24" />
-
     <TextView
         android:id="@+id/Date_Label"
         android:layout_width="121dp"
@@ -261,76 +87,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="79dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="132dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="177dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="223dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="273dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="323dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="369dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="420dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="468dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="514dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="562dp" />
-
     <ProgressBar
         android:id="@+id/Search_LoadIcon"
         style="?android:attr/progressBarStyle"
@@ -339,7 +95,20 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.396" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerView_GroupJoin"
+        android:layout_width="362dp"
+        android:layout_height="459dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/guideline20"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
