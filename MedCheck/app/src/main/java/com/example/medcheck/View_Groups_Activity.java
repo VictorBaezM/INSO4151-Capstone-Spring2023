@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 
 public class View_Groups_Activity extends AppCompatActivity {
     private FirebaseAuth auth;
-    private User user = new User();
+    private User user = Home_Activity.user;
     private RecyclerView recyclerView;
     private ArrayList<String> groupList;
     private GroupListAdapter groupListAdapter;

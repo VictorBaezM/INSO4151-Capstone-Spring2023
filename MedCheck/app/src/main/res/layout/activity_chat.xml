@@ -9,6 +9,16 @@
     android:backgroundTint="#abdbe3"
     tools:context=".Chat_Activity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/button_navigation"
+        tools:ignore="MissingConstraints"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/selector"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/button_chat_menu" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
