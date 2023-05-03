@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -13,6 +12,8 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 
 
 
@@ -33,6 +34,12 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
         <activity
             android:name=".Alarm_example"
             android:exported="false" />
@@ -74,6 +81,24 @@
         <activity
             android:name=".View_Groups_Activity"
             android:exported="true" />
+        <activity
+            android:name=".View_Alarms_Activity"
+            android:exported="true" />
+        <activity
+            android:name=".View_Alarm_Info_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_Alarm_Info_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_Alarm_Date_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Add_Alarm_Time_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Alarm_View_Activity"
+            android:exported="false" />
         <activity
             android:name=".Pending_Implementation_Activity"
             android:exported="true" />

@@ -55,7 +55,7 @@ public class Home_Activity extends AppCompatActivity {
     }
 
     public void addAlarm(View view) {
-        startActivity(new Intent(Home_Activity.this, View_Alarms_Activity.class)); //Place holder for future alarm implementation
+        startActivity(new Intent(this, View_Alarms_Activity.class)); //Place holder for future alarm implementation
 
     }
 
