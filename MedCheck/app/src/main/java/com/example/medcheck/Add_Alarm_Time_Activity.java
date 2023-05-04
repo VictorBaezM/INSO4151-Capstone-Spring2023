@@ -32,7 +32,6 @@ public class Add_Alarm_Time_Activity extends AppCompatActivity {
         Log.println(Log.INFO,"debug","The values received for medication is "+ getIntent().getExtras().get("medication"));
         Log.println(Log.INFO,"debug","The values received for description is "+ getIntent().getExtras().get("description"));
         Log.println(Log.INFO,"debug","The values received for date is "+ getIntent().getExtras().get("date"));
-        int newID = Home_Activity.user.getAlarms().size();
         Alarm alarm = new Alarm(FirebaseAuth.getInstance().getCurrentUser().getUid(),(String) getIntent().getExtras().get("medication"),(String) getIntent().getExtras().get("description"),(String) getIntent().getExtras().get("date"),alarmTimePicker.getHour()+":"+alarmTimePicker.getMinute());
         Log.println(Log.INFO,"debug","The alarm created is "+ alarm);
         alarm.setRepeats((String) getIntent().getExtras().get("repeats"));

@@ -27,6 +27,8 @@ public class Chat_Activity extends AppCompatActivity {
     public static ArrayList<Message> chatList;
     public String GroupName;
 
+    public Thread MessageThread;
+
     AtomicReference<Group> group;
 
     TextView txtMessage;
@@ -49,7 +51,18 @@ public class Chat_Activity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         group = new AtomicReference<>(new Group());
         GroupName = (String) getIntent().getExtras().get("GroupName");
-        loadMessages();
+        MessageThread = new Thread(()->{
+           while(true){
+            loadMessages();
+               try {
+                   Thread.sleep(1000);
+               } catch (InterruptedException e) {
+                   throw new RuntimeException(e);
+               }
+           }
+        });
+        MessageThread.start();
+//        loadMessages();
         MessageListAdapter = new MessageListAdapter(this, reverse(chatList));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(Chat_Activity.this));

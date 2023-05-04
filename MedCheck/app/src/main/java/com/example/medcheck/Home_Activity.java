@@ -1,8 +1,13 @@
 package com.example.medcheck;
 
+import static com.example.medcheck.NotificationHelper.CHANNEL_ID;
+
 import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,19 +23,47 @@ public class Home_Activity extends AppCompatActivity {
 
     public static User user;
     AlarmManager alarmManager;
-
+    Thread NotificationThread;
     static Context GlobalContext;
-//    PendingIntent pendingIntent;
-//    public static ArrayList<Message> messages = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        createNotificationChannel();
+        NotificationThread =  new Thread(()->{
+            checkForNotifications();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+
+
+
         GlobalContext = getApplicationContext();
         TextView welcomeText = findViewById(R.id.textView);
         welcomeText.setText("Welcome back, " + user.getDisplay_name());
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         setupAlarms();
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notify User";
+            String description = "Remember to take medicine";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
+    private void checkForNotifications() {
     }
 
     public void setupAlarms(){
