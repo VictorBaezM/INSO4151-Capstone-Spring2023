@@ -1,35 +1,33 @@
-package com.example.medcheck.Adapters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+        package com.example.medcheck.Adapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
 
-import com.example.medcheck.Alarm;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medcheck.Chat_Activity;
-import com.example.medcheck.Group_Select;
-import com.example.medcheck.Home_Activity;
-import com.example.medcheck.R;
-import com.example.medcheck.View_Alarm_Info_Activity;
+        import com.example.medcheck.Chat_Activity;
+        import com.example.medcheck.Group_Select;
+        import com.example.medcheck.Home_Activity;
+        import com.example.medcheck.R;
+        import com.example.medcheck.View_Alarm_Info_Activity;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.AlarmHolder> {
-    private ArrayList<Alarm> mAlarmList;
+    private ArrayList<String> mAlarmList;
     private Context mContext;
 
-    public AlarmListAdapter(Context context, ArrayList<Alarm> alarmList) {
+    public AlarmListAdapter(Context context, ArrayList<String> AlarmList) {
         mContext = context;
-        mAlarmList = alarmList;
+        mAlarmList = AlarmList;
     }
 
     @Override
@@ -49,29 +47,31 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.Alar
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(@NonNull AlarmHolder holder, int position) {
-        Alarm alarm = mAlarmList.get(position);
-        holder.bind(alarm);
+        String group = mAlarmList.get(position);
+        holder.bind(group);
     }
 
     class AlarmHolder extends RecyclerView.ViewHolder {
-        Button alarmButton;
+        Button AlarmButton;
 
         AlarmHolder(View itemView) {
             super(itemView);
 
-            alarmButton = itemView.findViewById(R.id.alarm_button);
+            AlarmButton = itemView.findViewById(R.id.alarm_button);
         }
 
-        void bind(Alarm alarm) {
-            alarmButton.setText(alarm.getMedication()+": "+alarm.getOwner());
-            alarmButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String alarmOwner = alarm.getOwner();
-                    Intent intent = new Intent(mContext, View_Alarm_Info_Activity.class);
-                    intent.putExtra("Owner", alarmOwner);
-                    mContext.startActivity(intent);
-                }
+        void bind(String alarm) {
+            int index = alarm.indexOf(" ");
+            int number = Integer.parseInt(alarm.substring(0,index));
+            AlarmButton.setText(alarm.substring(index+1));
+            AlarmButton.setOnClickListener(view -> {
+                Intent intent;
+                intent = new Intent(mContext, View_Alarm_Info_Activity.class);
+                View_Alarm_Info_Activity.alarm =Home_Activity.user.getAlarms().get(number);
+                Log.println(Log.INFO, "debug", "The name for this button is " + view.getResources().getResourceEntryName(view.getId()));
+                intent.putExtra("AlarmNumber",number);
+                mContext.startActivity(intent);
+                ((AppCompatActivity)mContext).finish();
             });
         }
     }

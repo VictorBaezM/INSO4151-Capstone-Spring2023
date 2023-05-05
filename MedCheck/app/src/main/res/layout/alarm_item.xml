@@ -6,6 +6,7 @@
     android:textSize="12sp"
     android:textStyle="bold"
     android:textColor="@color/white"
+    android:backgroundTint="#954ff2"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="5dp"

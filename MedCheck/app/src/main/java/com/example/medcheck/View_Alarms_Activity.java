@@ -21,16 +21,17 @@ import java.util.ArrayList;
 public class View_Alarms_Activity extends AppCompatActivity {
     private User user = Home_Activity.user;
     private RecyclerView recyclerView;
-    private ArrayList<Alarm> alarmList;
+    private ArrayList<String> alarmList;
     private AlarmListAdapter alarmListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_alarms);
-        alarmList = new ArrayList<>();
-        loadAlarms();
-        alarmListAdapter = new AlarmListAdapter(this, alarmList);
+
         recyclerView = findViewById(R.id.recyclerViewAlarms);
+        alarmList = new ArrayList<>();
+        alarmList.addAll(Home_Activity.user.getAlarmsInfo());
+        alarmListAdapter = new AlarmListAdapter(this, alarmList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(alarmListAdapter);
 
@@ -55,11 +56,6 @@ public class View_Alarms_Activity extends AppCompatActivity {
         });
     }
 
-    private void loadAlarms() {
-        for (Alarm a: Home_Activity.user.getAlarms()) {
-             alarmList.add(a);
-        }
-    }
 
     public void switchView(View view) {
 

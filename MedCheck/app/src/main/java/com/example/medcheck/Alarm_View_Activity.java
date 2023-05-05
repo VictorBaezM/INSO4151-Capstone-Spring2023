@@ -48,6 +48,16 @@ public class Alarm_View_Activity extends AppCompatActivity {
         this.finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        mp.stop();
+        Intent intent = new Intent(Home_Activity.GlobalContext, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(Home_Activity.GlobalContext, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
+        alarmManager.cancel(pendingIntent);
+        notifyGroups();
+        super.onBackPressed();
+    }
+
     private void notifyGroups() {
         new Thread(()->{
             ArrayList<String> GroupNames = Home_Activity.user.getGroupNames();
