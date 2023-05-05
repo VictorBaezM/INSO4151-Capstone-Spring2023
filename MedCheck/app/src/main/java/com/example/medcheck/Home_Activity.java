@@ -9,12 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -49,6 +52,26 @@ public class Home_Activity extends AppCompatActivity {
         welcomeText.setText("Welcome back, " + user.getDisplay_name());
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         setupAlarms();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Toast.makeText(Home_Activity.this, "Already Home", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_groupadd:
+                        startActivity(new Intent(Home_Activity.this, Create_Group_Activity.class));
+                        return true;
+                    case R.id.nav_search:
+                        startActivity(new Intent(Home_Activity.this, Group_Join_Activity.class));
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

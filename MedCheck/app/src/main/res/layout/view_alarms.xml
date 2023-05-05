@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:backgroundTint="#abdbe3">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        tools:ignore="MissingConstraints" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/button_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/windowBackground"
+        app:itemIconTint="@color/selector"
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/button_menu"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/Create_Alarm_Button"
@@ -36,14 +52,14 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
+        app:layout_constraintVertical_bias="0.137" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewAlarms"
         android:layout_width="409dp"
         android:layout_height="252dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="87dp" />
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="160dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

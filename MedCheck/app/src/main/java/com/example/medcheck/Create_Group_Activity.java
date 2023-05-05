@@ -3,14 +3,17 @@ package com.example.medcheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -27,6 +30,26 @@ public class Create_Group_Activity extends AppCompatActivity {
         GroupName = findViewById(R.id.GroupName);
         Size = findViewById(R.id.GroupSize);
         GroupPassword = findViewById(R.id.GroupPassword);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(Create_Group_Activity.this, Home_Activity.class));
+                        return true;
+                    case R.id.nav_groupadd:
+                        Toast.makeText(Create_Group_Activity.this, "Already in group creation screen", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.nav_search:
+                        startActivity(new Intent(Create_Group_Activity.this, Group_Join_Activity.class));
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     public void createGroup(View view) {

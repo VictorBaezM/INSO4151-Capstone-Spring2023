@@ -1,18 +1,22 @@
 package com.example.medcheck;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medcheck.Adapters.MessageListAdapter;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -85,6 +89,27 @@ public class Chat_Activity extends AppCompatActivity {
                     Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
                 }
 //                txtMessage.setText("");
+            }
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
+                        return true;
+                    case R.id.nav_addPerson:
+                        Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
+                        //  startActivity(new Intent(Chat_Activity.this, Add_Person.class));
+                    case R.id.nav_addAlarm:
+                        Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
+                    //    startActivity(new Intent(Chat_Activity.this, Alarms_inGroup.class));
+                        return true;
+                    default:
+                        return false;
+                }
             }
         });
     }

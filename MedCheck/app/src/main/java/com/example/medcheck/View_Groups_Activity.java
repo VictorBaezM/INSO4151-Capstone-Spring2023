@@ -54,7 +54,7 @@ public class View_Groups_Activity extends AppCompatActivity {
                         startActivity(new Intent(View_Groups_Activity.this, Create_Group_Activity.class));
                         return true;
                     case R.id.nav_search:
-                        // Handle click on menu item 3
+                        startActivity(new Intent(View_Groups_Activity.this, Group_Join_Activity.class));
                         return true;
                     default:
                         return false;

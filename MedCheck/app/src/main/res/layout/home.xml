@@ -9,6 +9,13 @@
     android:backgroundTint="#abdbe3"
     android:gravity="center">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        tools:ignore="MissingConstraints" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/button_navigation"
         android:layout_width="match_parent"
