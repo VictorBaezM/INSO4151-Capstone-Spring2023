@@ -21,102 +21,7 @@
         app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/Alarm_Button1"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:onClick="manageAlarm"
-        android:text="Y"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
-
-    <Button
-        android:id="@+id/Alarm_Button2"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:onClick="manageAlarm"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:text="Example Group 2"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
-
-    <Button
-        android:id="@+id/Alarm_Button3"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:onClick="manageAlarm"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:text="Example Group 3"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
-
-    <Button
-        android:id="@+id/Alarm_Button4"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:onClick="manageAlarm"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:text="Example Group 4"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285" />
-
-    <Button
-        android:id="@+id/Alarm_Button5"
-        android:layout_width="316dp"
-        android:layout_height="42dp"
-        android:onClick="manageAlarm"
-        android:backgroundTint="#6b898e"
-        android:enabled="false"
-        android:text="Example Group 5"
-        android:textColor="#2b3739"
-        android:textSize="14sp"
-        android:visibility="invisible"
-        app:iconGravity="textStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.346" />
+        app:layout_constraintVertical_bias="0.689" />
 
     <TextView
         android:id="@+id/Your_Alarms_Label"
@@ -132,5 +37,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.031" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAlarms"
+        android:layout_width="407dp"
+        android:layout_height="328dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="72dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

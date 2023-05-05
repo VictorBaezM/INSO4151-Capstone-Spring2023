@@ -19,20 +19,16 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class View_Groups_Activity extends AppCompatActivity {
-    private FirebaseAuth auth;
     private User user = Home_Activity.user;
     private RecyclerView recyclerView;
     private ArrayList<String> groupList;
     private GroupListAdapter groupListAdapter;
-    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_groups);
-        auth = FirebaseAuth.getInstance();
         recyclerView = findViewById(R.id.recyclerView2);
-        db = FirebaseFirestore.getInstance();
         groupList = new ArrayList<>();
         for ( Object g: loadGroups()
              ) {
