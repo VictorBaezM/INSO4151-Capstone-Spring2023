@@ -3,15 +3,19 @@ package com.example.medcheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medcheck.Adapters.GroupListAdapter;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -37,6 +41,27 @@ public class View_Groups_Activity extends AppCompatActivity {
         groupListAdapter = new GroupListAdapter(this, groupList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(groupListAdapter);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        startActivity(new Intent(View_Groups_Activity.this, Home_Activity.class));
+                        return true;
+                    case R.id.nav_groupadd:
+                        startActivity(new Intent(View_Groups_Activity.this, Create_Group_Activity.class));
+                        return true;
+                    case R.id.nav_search:
+                        // Handle click on menu item 3
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
     }
 
     private ArrayList loadGroups() {
@@ -48,7 +73,10 @@ public class View_Groups_Activity extends AppCompatActivity {
         startActivity(new Intent(View_Groups_Activity.this, Create_Group_Activity.class));
         finish();
     }
-
+    public void goHome(View view) {
+        startActivity(new Intent(View_Groups_Activity.this, Home_Activity.class));
+        finish();
+    }
     public void joinGroup(View view) {
         startActivity(new Intent(View_Groups_Activity.this, Group_Join_Activity.class));
         finish();

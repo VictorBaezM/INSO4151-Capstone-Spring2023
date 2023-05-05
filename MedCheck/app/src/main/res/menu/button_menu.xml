@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".StartActivity">
+
     <item android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"/>
+        android:contentDescription="go to home"
+        android:title="Home"
+        />
     <item android:id="@+id/nav_search"
         android:icon="@drawable/ic_search"
+        android:contentDescription="Search for groups"
         android:title="Search"/>
     <item android:id="@+id/nav_groupadd"
         android:icon="@drawable/ic_groupadd"
-        android:title="GroupAdd"/>
+        android:contentDescription="Create a new group"
+        android:title="GroupCreate"/>
 </menu>
