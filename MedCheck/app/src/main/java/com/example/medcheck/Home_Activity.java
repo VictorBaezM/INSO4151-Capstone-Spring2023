@@ -1,10 +1,14 @@
 package com.example.medcheck;
 
+import static com.example.medcheck.NotificationHelper.CHANNEL_ID;
+
 import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,31 +16,54 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Home_Activity extends AppCompatActivity {
 
     public static User user;
     AlarmManager alarmManager;
-//    PendingIntent pendingIntent;
-//    public static ArrayList<Message> messages = new ArrayList<>();
+    Thread NotificationThread;
+    static Context GlobalContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        createNotificationChannel();
+        NotificationThread =  new Thread(()->{
+            checkForNotifications();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+
+
+
+
+        GlobalContext = getApplicationContext();
         TextView welcomeText = findViewById(R.id.textView);
         welcomeText.setText("Welcome back, " + user.getDisplay_name());
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         setupAlarms();
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Notify User";
+            String description = "Remember to take medicine";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
+    private void checkForNotifications() {
     }
 
     public void setupAlarms(){

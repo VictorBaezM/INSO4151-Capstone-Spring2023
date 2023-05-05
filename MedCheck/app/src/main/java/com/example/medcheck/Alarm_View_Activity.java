@@ -12,17 +12,25 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beust.jcommander.Strings;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 public class Alarm_View_Activity extends AppCompatActivity {
     public MediaPlayer mp;
     int AlarmID;
 
     PendingIntent pendingIntent;
 
+    FirebaseAuth auth;
     AlarmManager alarmManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.alarm_view);
+        auth = FirebaseAuth.getInstance();
         AlarmID =(int)getIntent().getExtras().get("AlarmID");
         ((TextView) findViewById(R.id.MedicationName)).setText(Home_Activity.user.getAlarms().get(AlarmID).getMedication());
         ((TextView)findViewById(R.id.Description)).setText(Home_Activity.user.getAlarms().get(AlarmID).getDescription());
@@ -33,10 +41,34 @@ public class Alarm_View_Activity extends AppCompatActivity {
 
     public void StopAlarm(View view){
         mp.stop();
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(this, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
+        Intent intent = new Intent(Home_Activity.GlobalContext, AlarmReceiver.class);
+        pendingIntent = PendingIntent.getBroadcast(Home_Activity.GlobalContext, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
         alarmManager.cancel(pendingIntent);
+        notifyGroups();
         this.finish();
+    }
+
+    private void notifyGroups() {
+        new Thread(()->{
+            ArrayList<String> GroupNames = Home_Activity.user.getGroupNames();
+            for (int i = 0; i < GroupNames.size(); i++) {
+                Group g  = new Group();
+                try {
+                    g.getGroupFromDB(GroupNames.get(i));
+                    g.addMessage(new Message(auth.getCurrentUser().getUid(),"Alarm for "+Home_Activity.user.getAlarms().get(AlarmID).getMedication()+ " has activated and was acknowledged by "+Home_Activity.user.getDisplay_name()));
+                    g.uploadGroup();
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+        }).start();
+
+
+
+
     }
 
 }

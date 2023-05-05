@@ -2,6 +2,7 @@ package com.example.medcheck.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medcheck.Alarm;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.medcheck.Chat_Activity;
+import com.example.medcheck.Group_Select;
+import com.example.medcheck.Home_Activity;
 import com.example.medcheck.R;
 import com.example.medcheck.View_Alarm_Info_Activity;
 
