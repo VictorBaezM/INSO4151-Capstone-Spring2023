@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="auto"
         app:menu="@menu/button_chat_menu"
         tools:ignore="MissingConstraints" />
     <androidx.recyclerview.widget.RecyclerView

@@ -1,5 +1,7 @@
 package com.example.medcheck;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -105,8 +107,13 @@ public class Chat_Activity extends AppCompatActivity {
                         //  startActivity(new Intent(Chat_Activity.this, Add_Person.class));
                     case R.id.nav_addAlarm:
                         Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
-                    //    startActivity(new Intent(Chat_Activity.this, Alarms_inGroup.class));
+                        startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
                         return true;
+                    case R.id.nav_exitGroup:
+                        Home_Activity.user.getGroupNames().remove(GroupName);
+                        Home_Activity.user.uploadUser();
+                        startActivity(new Intent(Chat_Activity.this,Home_Activity.class));
+                        finish();
                     default:
                         return false;
                 }

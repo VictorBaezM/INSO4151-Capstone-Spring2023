@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="Home"/>
+        android:title="Home"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/nav_addPerson"
         android:icon="@drawable/add_person"
-        android:title="AddPersonToGroup" />
+        android:title="AddPersonToGroup"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/nav_addAlarm"
         android:icon="@drawable/add_alarm"
-        android:title="AlarmAdd" />
+        android:title="AlarmAdd"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/nav_exitGroup"
+        android:icon="@drawable/exit_group"
+        android:title="Exit"
+        app:showAsAction="ifRoom"/>
 </menu>
