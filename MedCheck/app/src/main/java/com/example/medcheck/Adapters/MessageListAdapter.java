@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.medcheck.Message;
 import com.example.medcheck.R;
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.testng.internal.Utils;
 
 import java.util.List;
 
@@ -81,20 +78,22 @@ public class MessageListAdapter extends RecyclerView.Adapter {
     }
 
     private class SentMessageHolder extends RecyclerView.ViewHolder {
-        TextView messageText, timeText;
+        TextView messageText, timeText, dateText;
 
         SentMessageHolder(View itemView) {
             super(itemView);
 
             messageText = (TextView) itemView.findViewById(R.id.text_gchat_message_me);
             timeText = (TextView) itemView.findViewById(R.id.text_gchat_timestamp_me);
+            dateText = itemView.findViewById(R.id.text_gchat_date_me);
         }
 
         void bind(Message message) {
             messageText.setText(message.getContent());
 
             // Format the stored timestamp into a readable String using method.
-            timeText.setText(message.getSend_Date());
+            timeText.setText(message.getSend_Time());
+            dateText.setText(message.getSend_Date());
         }
     }
 
