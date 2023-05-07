@@ -76,7 +76,11 @@ public class Add_Alarm_Date_Activity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
     //Gets info from previous activity and calendar-view to pass to next activity.
     public void changeView(View view){
         String repeats = "";
@@ -98,6 +102,5 @@ public class Add_Alarm_Date_Activity extends AppCompatActivity {
         i.putExtra("Month",Integer.parseInt(Month));
         i.putExtra("Year",Integer.parseInt(Year));
         startActivity(i);
-        finish();
     }
 }

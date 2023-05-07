@@ -15,7 +15,16 @@ public class Add_Alarm_Info_Activity extends AppCompatActivity {
         setContentView(R.layout.add_alarm_info);
 
     }
-//Gets info from text boxes and passes them to next activity
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, View_Alarms_Activity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
+    }
+
+    //Gets info from text boxes and passes them to next activity
     public void changeView(View view){
         Intent i = new Intent(this, Add_Alarm_Date_Activity.class);
         String medication = "";
@@ -28,8 +37,8 @@ public class Add_Alarm_Info_Activity extends AppCompatActivity {
             Toast.makeText(this, "Please fill out both fields", Toast.LENGTH_LONG).show();
         }
         else{
+
             startActivity(i);
-            finish();
         }
     }
 
