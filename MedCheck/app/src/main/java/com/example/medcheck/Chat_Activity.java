@@ -62,7 +62,7 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
            while(true){
             loadMessages();
                try {
-                   Thread.sleep(1000);
+                   Thread.sleep(10000);
                } catch (InterruptedException e) {
                    throw new RuntimeException(e);
                }
