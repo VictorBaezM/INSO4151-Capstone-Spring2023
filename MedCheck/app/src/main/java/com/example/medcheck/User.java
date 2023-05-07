@@ -7,7 +7,6 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -120,21 +119,22 @@ public class User implements java.io.Serializable{
 
     }
 
-    /*public void searchUser(String UserEmail, Add_Person_Activity add_person_activity){
+    public void searchUser(String UserEmail, Add_Person_Activity add_person_activity){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        User user = new User();
+        AtomicReference<User> user = new AtomicReference<>(new User());
         Task<QuerySnapshot> Dref =  db.collection("Users").get().addOnCompleteListener(task->{
             if (task.isSuccessful()){
                 for (QueryDocumentSnapshot i:task.getResult()){
                     if (i.exists()) {
                         String Email = (String) i.get("email_address");
 
-                        if(Email.equals(UserEmail))
-                            user =
+                        if(Email.equals(UserEmail)){
+                            user.set(i.toObject(User.class));
+                            add_person_activity.addToGroup(user.get());
+                        }
                     }}
-                add_person_activity.addToGroup(user);
             }});
-    }*/
+    }
 
     public void uploadUser(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
