@@ -72,7 +72,6 @@ public class Create_Group_Activity extends AppCompatActivity {
                 }
                 Log.println(Log.INFO,"debug","Group name is available");
                 Group newGroup = new Group(GroupName.getText().toString(),GroupPassword.getText().toString());
-                newGroup.setAlarms(Home_Activity.user.getAlarms());
                 newGroup.uploadGroup();
                 Home_Activity.user.addGroupNames(GroupName.getText().toString());
                 Home_Activity.user.uploadUser();

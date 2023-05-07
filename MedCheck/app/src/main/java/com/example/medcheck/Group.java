@@ -24,7 +24,7 @@ public class Group  implements Serializable {
     private String GroupName;
     private String GroupPassword;
     private ArrayList<Message> messages;
-    private ArrayList<Alarm> alarms;
+
 
 
     public Group(){}
@@ -40,7 +40,6 @@ public class Group  implements Serializable {
         this.GroupName = GroupName;
         this.GroupPassword = GroupPassword;
         messages = new ArrayList<Message>();
-        alarms = new ArrayList<Alarm>();
     }
     //Receives a user and an arraylist of buttons.
     //Looks for the groups that the user provided is a part of
@@ -118,13 +117,7 @@ public class Group  implements Serializable {
                     }});
     }
 
-    public ArrayList<Alarm> getAlarms() {
-        return alarms;
-    }
 
-    public void setAlarms(ArrayList<Alarm> alarms) {
-        this.alarms = alarms;
-    }
 
     public ArrayList<Message> getMessages() {
         return messages;
@@ -155,9 +148,7 @@ public class Group  implements Serializable {
         return messages.add(m);
     }
 
-    public boolean addAlarm(Alarm a){
-        return alarms.add(a);
-    }
+
 
 
 
@@ -228,7 +219,7 @@ public class Group  implements Serializable {
         setGroupName(group1.get().getGroupName());
         setMessages(group1.get().getMessages());
         setGroupPassword(group1.get().getGroupPassword());
-        setAlarms(group1.get().getAlarms());
+
         Log.println(Log.INFO,"debug","2The group acquired by the db is "+group1.toString());
     }
 
@@ -260,12 +251,10 @@ public class Group  implements Serializable {
                 "GroupName='" + GroupName + '\'' +
                 ", GroupPassword='" + GroupPassword + '\'' +
                 ", messages=" + messages +
-                ", alarms=" + alarms +
                 '}';
     }
 
     public void ClearInfo() {
-        setAlarms(null);
         setMessages(null);
     }
 

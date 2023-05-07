@@ -31,8 +31,8 @@ public class Add_Alarm_Time_Activity extends AppCompatActivity {
     public void changeView(View view){
         Log.println(Log.INFO,"debug","The values received for medication is "+ getIntent().getExtras().get("medication"));
         Log.println(Log.INFO,"debug","The values received for description is "+ getIntent().getExtras().get("description"));
-        Log.println(Log.INFO,"debug","The values received for date is "+ getIntent().getExtras().get("date"));
-        Alarm alarm = new Alarm(FirebaseAuth.getInstance().getCurrentUser().getUid(),(String) getIntent().getExtras().get("medication"),(String) getIntent().getExtras().get("description"),(String) getIntent().getExtras().get("date"),alarmTimePicker.getHour()+":"+alarmTimePicker.getMinute());
+        Log.println(Log.INFO,"debug","The values received for date is "+getIntent().getExtras().get("Year")+"/"+getIntent().getExtras().get("Month")+"/"+ getIntent().getExtras().get("Day")+"/");
+        Alarm alarm = new Alarm(FirebaseAuth.getInstance().getCurrentUser().getUid(),(String) getIntent().getExtras().get("medication"),(String) getIntent().getExtras().get("description"),new Date((int)getIntent().getExtras().get("Year"),(int)getIntent().getExtras().get("Month"),(int) getIntent().getExtras().get("Day"),alarmTimePicker.getHour(),alarmTimePicker.getMinute()));
         Log.println(Log.INFO,"debug","The alarm created is "+ alarm);
         alarm.setRepeats((String) getIntent().getExtras().get("repeats"));
         Home_Activity.user.addAlarm(alarm);

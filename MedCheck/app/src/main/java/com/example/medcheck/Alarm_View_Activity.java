@@ -16,6 +16,7 @@ import com.beust.jcommander.Strings;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+
 import java.util.concurrent.ExecutionException;
 
 public class Alarm_View_Activity extends AppCompatActivity {
@@ -74,6 +75,10 @@ public class Alarm_View_Activity extends AppCompatActivity {
                 }
 
             }
+            Date d =  new Date();
+            d.setToCurrentDate();
+            Home_Activity.user.getAlarms().get(AlarmID).getDatesAcknowledged().add(d);
+            Home_Activity.user.uploadUser();
         }).start();
 
 
