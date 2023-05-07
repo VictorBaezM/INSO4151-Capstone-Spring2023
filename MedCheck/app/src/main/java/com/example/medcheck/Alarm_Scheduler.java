@@ -20,15 +20,15 @@ public class Alarm_Scheduler {
         alarmManager = (AlarmManager) Home_Activity.GlobalContext.getSystemService(ALARM_SERVICE);
         long time;
 
-        int Year = Integer.valueOf(alarm.getYear());
+        int Year = alarm.getYear();
 
-        int Month = Integer.valueOf(alarm.getMonth());
+        int Month = alarm.getMonth();
 
-        int Day = Integer.valueOf(alarm.getDay());
+        int Day = alarm.getDay();
 
-        int Hour = Integer.valueOf(alarm.getHour());
+        int Hour = alarm.getHour();
 
-        int Minute = Integer.valueOf(alarm.getMinute());
+        int Minute = alarm.getMinute();
 
 
         Toast.makeText(context, alarm.toString()+"\n"+"ALARM ON", Toast.LENGTH_SHORT).show();

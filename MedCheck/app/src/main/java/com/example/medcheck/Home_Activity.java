@@ -16,11 +16,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Home_Activity extends AppCompatActivity {
 
@@ -28,12 +36,14 @@ public class Home_Activity extends AppCompatActivity {
     AlarmManager alarmManager;
     Thread NotificationThread;
     static Context GlobalContext;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
-        createNotificationChannel();
+//        createNotificationChannel();
+        auth = FirebaseAuth.getInstance();
         NotificationThread =  new Thread(()->{
             checkForNotifications();
             try {
@@ -42,8 +52,8 @@ public class Home_Activity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         });
-
-
+        NotificationThread.start();
+        User.checkAlarms();
 
 
 
@@ -73,7 +83,7 @@ public class Home_Activity extends AppCompatActivity {
             }
         });
     }
-    private void createNotificationChannel() {
+    private void createNotificationChannel(String title,String info) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notify User";
             String description = "Remember to take medicine";
@@ -83,10 +93,42 @@ public class Home_Activity extends AppCompatActivity {
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_home_background)
+                .setContentTitle(title)
+//                .setContentText(info)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(info))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+// notificationID allows you to update the notification later on.
+        mNotificationManager.notify(1, builder.build());
+
     }
 
 
     private void checkForNotifications() {
+        FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+        CollectionReference Dref1 = db1.collection("Notifications");
+        Dref1.get().addOnCompleteListener(task->{
+            if(task.isSuccessful()){
+                QuerySnapshot doc1 = task.getResult();
+                List<DocumentSnapshot> x = doc1.getDocuments();
+                for (DocumentSnapshot d:x){
+                    if(d.exists()&&d.getReference().getPath().contains(Objects.requireNonNull(auth.getUid()))){
+                        Notification n =d.toObject(Notification.class);
+                        if(n.getTitle().equals("3xcRead")){
+                            return;
+                        }
+                        createNotificationChannel((String) d.get("title"), (String) d.get("info"));
+                        FirebaseFirestore db2 = FirebaseFirestore.getInstance();
+                        db2.document(d.getReference().getPath()).set(new Notification("3xcRead",""));
+                    }
+                }
+            }
+        });
+
     }
 
     public void setupAlarms(){

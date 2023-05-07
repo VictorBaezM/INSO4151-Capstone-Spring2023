@@ -94,7 +94,9 @@ public class Add_Alarm_Date_Activity extends AppCompatActivity {
         i.putExtra("medication",(String) getIntent().getExtras().get("medication"));
         i.putExtra("description",(String)getIntent().getExtras().get("description"));
         i.putExtra("repeats",repeats);
-        i.putExtra("date",Day + "/" + Month + "/" + Year);
+        i.putExtra("Day",Integer.parseInt(Day) );
+        i.putExtra("Month",Integer.parseInt(Month));
+        i.putExtra("Year",Integer.parseInt(Year));
         startActivity(i);
         finish();
     }
