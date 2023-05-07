@@ -17,7 +17,7 @@ public class Alarm_Scheduler {
     public Alarm_Scheduler(){}
 
     public boolean setUpAlarm(Context context, int AlarmID, Alarm alarm){
-        alarmManager = (AlarmManager) Home_Activity.GlobalContext.getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         long time;
 
         int Year = alarm.getYear();
@@ -46,7 +46,7 @@ public class Alarm_Scheduler {
 
         // using intent i have class AlarmReceiver class which inherits
         // BroadcastReceiver
-        Intent intent = new Intent(Home_Activity.GlobalContext, AlarmReceiver.class);
+        Intent intent = new Intent(context, AlarmReceiver.class);
         Log.println(Log.INFO,"debug","Setting AlarmID intent: "+AlarmID);
         intent.putExtra("AlarmID",AlarmID);
         intent.putExtra("Year",Year);
@@ -57,7 +57,7 @@ public class Alarm_Scheduler {
         intent.putExtra("Repeats",alarm.getRepeats());
         // we call broadcast using pendingIntent
         Log.println(Log.INFO,"debug","Calling broadcast using pendingIntent......");
-        pendingIntent = PendingIntent.getBroadcast(Home_Activity.GlobalContext, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
+        pendingIntent = PendingIntent.getBroadcast(context, AlarmID, intent, PendingIntent.FLAG_IMMUTABLE);
 
         time = (calendar.getTimeInMillis() - (calendar.getTimeInMillis() % 60000));
         if (System.currentTimeMillis() > time) {

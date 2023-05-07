@@ -37,7 +37,7 @@ public class Group_Join_Activity extends AppCompatActivity {
         setContentView(R.layout.group_join);
         SearchBar = findViewById(R.id.SearchBar);
         LoadingIcon = findViewById(R.id.Search_LoadIcon);
-        LoadingIcon.setVisibility(View.VISIBLE);
+        LoadingIcon.setVisibility(View.INVISIBLE);
         recyclerView = findViewById(R.id.RecyclerView_GroupJoin);
         groupList = new ArrayList<>();
 

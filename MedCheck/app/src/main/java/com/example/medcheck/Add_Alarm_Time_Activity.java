@@ -27,6 +27,12 @@ public class Add_Alarm_Time_Activity extends AppCompatActivity {
         alarmTimePicker = findViewById(R.id.timePicker);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
     //Gets info from previous activity and timepicker to create alarm.
     public void changeView(View view){
         Log.println(Log.INFO,"debug","The values received for medication is "+ getIntent().getExtras().get("medication"));
@@ -40,7 +46,9 @@ public class Add_Alarm_Time_Activity extends AppCompatActivity {
         Home_Activity.user.uploadUser();
         Alarm_Scheduler alarm_scheduler = new Alarm_Scheduler();
         alarm_scheduler.setUpAlarm(this,Home_Activity.user.getAlarms().size()-1,alarm);
-        startActivity(new Intent(this, View_Alarms_Activity.class));
+        Intent i = new Intent(this, View_Alarms_Activity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
         finish();
     }
 

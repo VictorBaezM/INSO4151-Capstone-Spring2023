@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/selector"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="auto"
         app:menu="@menu/button_chat_menu"
         tools:ignore="MissingConstraints" />
     <androidx.recyclerview.widget.RecyclerView
@@ -36,8 +36,8 @@
 
     <ImageButton
         android:id="@+id/send_icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="54dp"
+        android:layout_height="46dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_chat_black" />

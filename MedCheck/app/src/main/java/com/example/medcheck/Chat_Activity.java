@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Chat_Activity extends AppCompatActivity {
+public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     public static ArrayList<Message> chatList;
     public String GroupName;
 
@@ -40,7 +41,6 @@ public class Chat_Activity extends AppCompatActivity {
     ImageButton sendTxt;
     FirebaseAuth auth;
     FirebaseFirestore db;
-
     RecyclerView recyclerView;
 
     @Override
@@ -59,7 +59,7 @@ public class Chat_Activity extends AppCompatActivity {
            while(true){
             loadMessages();
                try {
-                   Thread.sleep(1000);
+                   Thread.sleep(10000);
                } catch (InterruptedException e) {
                    throw new RuntimeException(e);
                }
@@ -73,46 +73,52 @@ public class Chat_Activity extends AppCompatActivity {
         recyclerView.setAdapter(MessageListAdapter);
 
 
-        sendTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = txtMessage.getText().toString();
+        sendTxt.setOnClickListener(view -> {
+            String message = txtMessage.getText().toString();
 
-                if (!message.equals("")){
-                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
-                    try {
-                        sendMessage(chat);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }else {
-                    Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
+            if (!message.equals("")){
+                Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
+                try {
+                    sendMessage(chat);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-//                txtMessage.setText("");
+            }else {
+                Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
             }
+//                txtMessage.setText("");
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
-                        return true;
-                    case R.id.nav_addPerson:
-                        Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
-                        //  startActivity(new Intent(Chat_Activity.this, Add_Person.class));
-                    case R.id.nav_addAlarm:
-                        Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
-                    //    startActivity(new Intent(Chat_Activity.this, Alarms_inGroup.class));
-                        return true;
-                    default:
-                        return false;
-                }
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
+                    finish();
+                    return true;
+                case R.id.nav_addPerson:
+                    Intent i =   new Intent(this, Add_Person_Activity.class);
+                    i.putExtra("GroupName",GroupName);
+                    startActivity(i);
+                    finish();
+                    return true;
+
+                case R.id.nav_addAlarm:
+                    startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
+                    finish();
+                    return true;
+                case R.id.nav_exitGroup:
+                    showPopup(findViewById(R.id.nav_exitGroup));
+                    finish();
+                    return true;
+                default:
+                    return false;
             }
         });
     }
+
+
+
     private ArrayList<Message> reverse(ArrayList<Message> chatList){
         Collections.reverse(chatList);
         return chatList;
@@ -162,4 +168,30 @@ public class Chat_Activity extends AppCompatActivity {
 
     }
 
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.Yes:
+                Toast.makeText(this, "Left group successfully", Toast.LENGTH_SHORT).show();
+                Home_Activity.user.getGroupNames().remove(GroupName);
+                Home_Activity.user.uploadUser();
+                startActivity(new Intent(Chat_Activity.this,Home_Activity.class));
+                finish();
+                return true;
+            case R.id.No:
+                Toast.makeText(this, "Decided to stay in group", Toast.LENGTH_SHORT).show();
+
+                return true;
+            default:
+                return false;
+        }
+
+    }
 }

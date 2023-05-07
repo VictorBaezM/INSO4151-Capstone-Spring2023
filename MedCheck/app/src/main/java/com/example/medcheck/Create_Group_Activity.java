@@ -21,14 +21,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class Create_Group_Activity extends AppCompatActivity {
 
     EditText GroupName;
-    EditText Size;
     EditText GroupPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_group);
         GroupName = findViewById(R.id.GroupName);
-        Size = findViewById(R.id.GroupSize);
         GroupPassword = findViewById(R.id.GroupPassword);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
@@ -53,8 +51,16 @@ public class Create_Group_Activity extends AppCompatActivity {
     }
 
     public void createGroup(View view) {
+        if(GroupName==null||GroupPassword==null||GroupName.getText().toString().equals("")||GroupPassword.getText().toString().equals("")){
+            Toast.makeText(Create_Group_Activity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(GroupPassword.length()<5){
+            Toast.makeText(this, "Password too short :(", Toast.LENGTH_SHORT).show();
+
+        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Log.println(Log.INFO,"debug","Group ");
+        //TODO check if this if statement is needed
         if(Home_Activity.user.groupNumber()+1>5){
             Toast.makeText(Create_Group_Activity.this, "Maximum amount of groups reached", Toast.LENGTH_LONG).show();
             return;
@@ -64,13 +70,11 @@ public class Create_Group_Activity extends AppCompatActivity {
 
                 for (QueryDocumentSnapshot i:task.getResult()){
                         if(i.getId().equals(GroupName.getText().toString())){
-                        Log.println(Log.INFO,"debug","Group already exists in DB");
                         Toast.makeText(Create_Group_Activity.this, "Group already exists", Toast.LENGTH_LONG).show();
                             return;}
 
 
                 }
-                Log.println(Log.INFO,"debug","Group name is available");
                 Group newGroup = new Group(GroupName.getText().toString(),GroupPassword.getText().toString());
                 newGroup.uploadGroup();
                 Home_Activity.user.addGroupNames(GroupName.getText().toString());

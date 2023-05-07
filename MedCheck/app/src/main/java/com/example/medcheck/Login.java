@@ -62,10 +62,11 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                signup_user.setEnabled(false);
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 loginUser(txt_email,txt_password);
-
+                signup_user.setEnabled(true);
             }
         });
     }
@@ -77,7 +78,6 @@ public class Login extends AppCompatActivity {
             FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
             if (newuser!=null){
                 Toast.makeText(context, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
-                Log.println(Log.INFO,"debug","User is valid and is User#" + newuser.getUid());
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference Dref =  db.collection("Users").document(newuser.getUid());
                 Dref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){

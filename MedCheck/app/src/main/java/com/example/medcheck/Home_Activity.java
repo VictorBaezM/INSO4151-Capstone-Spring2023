@@ -94,7 +94,7 @@ public class Home_Activity extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_home_background)
+                .setSmallIcon(R.mipmap.ic_logo_foreground)
                 .setContentTitle(title)
 //                .setContentText(info)
                 .setStyle(new NotificationCompat.BigTextStyle()
