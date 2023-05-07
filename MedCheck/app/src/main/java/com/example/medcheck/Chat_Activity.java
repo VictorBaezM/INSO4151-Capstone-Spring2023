@@ -4,6 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,6 +60,31 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
         db = FirebaseFirestore.getInstance();
         group = new AtomicReference<>(new Group());
         GroupName = (String) getIntent().getExtras().get("GroupName");
+
+        txtMessage.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.toString().indexOf('\n')!=-1&&s.toString().indexOf('\n')!=0){
+                    Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), s.toString().substring(0,s.toString().indexOf('\n')));
+                    txtMessage.setText("");
+                    try {
+                        sendMessage(chat);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
         MessageThread = new Thread(()->{
            while(true){
             loadMessages();
@@ -83,6 +110,7 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
 
                 if (!message.equals("")){
                     Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
+                    txtMessage.setText("");
                     try {
                         sendMessage(chat);
                     } catch (InterruptedException e) {
