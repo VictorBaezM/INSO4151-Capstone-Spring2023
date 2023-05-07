@@ -53,6 +53,10 @@ public class Create_Group_Activity extends AppCompatActivity {
     }
 
     public void createGroup(View view) {
+        if(GroupName==null||Size==null||GroupPassword==null||GroupName.getText().toString().equals("")||Size.getText().toString().equals("")||GroupPassword.getText().toString().equals("")){
+            Toast.makeText(Create_Group_Activity.this, "Please fill out all fields", Toast.LENGTH_LONG).show();
+            return;
+        }
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Log.println(Log.INFO,"debug","Group ");
         if(Home_Activity.user.groupNumber()+1>5){

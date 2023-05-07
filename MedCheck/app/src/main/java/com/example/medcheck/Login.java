@@ -62,10 +62,11 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                signup_user.setEnabled(false);
                 String txt_email = email.getText().toString();
                 String txt_password = password.getText().toString();
                 loginUser(txt_email,txt_password);
-
+                signup_user.setEnabled(true);
             }
         });
     }

@@ -105,7 +105,9 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                         return true;
                     case R.id.nav_addPerson:
                         Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
-                        //  startActivity(new Intent(Chat_Activity.this, Add_Person_Activity.class));
+                        Intent i =   new Intent(Chat_Activity.this, Add_Person_Activity.class);
+                        i.putExtra("GroupName",GroupName);
+                        startActivity(i);
                     case R.id.nav_addAlarm:
                         Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
