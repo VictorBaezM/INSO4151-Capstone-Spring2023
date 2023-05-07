@@ -1,7 +1,5 @@
 package com.example.medcheck;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -9,7 +7,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -103,10 +100,9 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
         recyclerView.setAdapter(MessageListAdapter);
 
 
-        sendTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String message = txtMessage.getText().toString();
+        sendTxt.setOnClickListener(view -> {
+            String message = txtMessage.getText().toString();
+
 
                 if (!message.equals("")){
                     Message chat = new Message(Objects.requireNonNull(auth.getCurrentUser()).getUid(), message);
@@ -118,22 +114,19 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                     }
                 }else {
                     Toast.makeText(Chat_Activity.this, "Can't send empty message", Toast.LENGTH_SHORT).show();
-                }
-//                txtMessage.setText("");
+
             }
+//                txtMessage.setText("");
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.nav_home:
-                    //Toast.makeText(Chat_Activity.this, "TODO, Home activity", Toast.LENGTH_SHORT).show();
-
                     startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
                     finish();
                     return true;
                 case R.id.nav_addPerson:
-                    //Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
                     Intent i =   new Intent(this, Add_Person_Activity.class);
                     i.putExtra("GroupName",GroupName);
                     startActivity(i);
@@ -141,7 +134,6 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                     return true;
 
                 case R.id.nav_addAlarm:
-                    //Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
                     finish();
                     return true;
