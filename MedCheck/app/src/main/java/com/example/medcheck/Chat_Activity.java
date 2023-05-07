@@ -96,28 +96,28 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.button_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.nav_home:
-                        startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
-                        return true;
-                    case R.id.nav_addPerson:
-                        Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
-                        Intent i =   new Intent(Chat_Activity.this, Add_Person_Activity.class);
-                        i.putExtra("GroupName",GroupName);
-                        startActivity(i);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+                    //Toast.makeText(Chat_Activity.this, "TODO, Home activity", Toast.LENGTH_SHORT).show();
 
-                    case R.id.nav_addAlarm:
-                        Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
-                        return true;
-                    case R.id.nav_exitGroup:
-                        showPopup(findViewById(R.id.nav_exitGroup));
-                    default:
-                        return false;
-                }
+                    startActivity(new Intent(Chat_Activity.this, Home_Activity.class));
+                    return true;
+                case R.id.nav_addPerson:
+                    //Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
+                    Intent i =   new Intent(this, Add_Person_Activity.class);
+                    i.putExtra("GroupName",GroupName);
+                    startActivity(i);
+                    return true;
+
+                case R.id.nav_addAlarm:
+                    //Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
+                    return true;
+                case R.id.nav_exitGroup:
+                    showPopup(findViewById(R.id.nav_exitGroup));
+                default:
+                    return false;
             }
         });
     }
