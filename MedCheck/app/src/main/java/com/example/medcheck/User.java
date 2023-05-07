@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
@@ -118,6 +119,22 @@ public class User implements java.io.Serializable{
         return AlarmsInfo;
 
     }
+
+    /*public void searchUser(String UserEmail, Add_Person_Activity add_person_activity){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        User user = new User();
+        Task<QuerySnapshot> Dref =  db.collection("Users").get().addOnCompleteListener(task->{
+            if (task.isSuccessful()){
+                for (QueryDocumentSnapshot i:task.getResult()){
+                    if (i.exists()) {
+                        String Email = (String) i.get("email_address");
+
+                        if(Email.equals(UserEmail))
+                            user =
+                    }}
+                add_person_activity.addToGroup(user);
+            }});
+    }*/
 
     public void uploadUser(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class Chat_Activity extends AppCompatActivity {
+public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     public static ArrayList<Message> chatList;
     public String GroupName;
 
@@ -42,7 +44,6 @@ public class Chat_Activity extends AppCompatActivity {
     ImageButton sendTxt;
     FirebaseAuth auth;
     FirebaseFirestore db;
-
     RecyclerView recyclerView;
 
     @Override
@@ -104,22 +105,22 @@ public class Chat_Activity extends AppCompatActivity {
                         return true;
                     case R.id.nav_addPerson:
                         Toast.makeText(Chat_Activity.this, "TODO, implement add person view and activity", Toast.LENGTH_SHORT).show();
-                        //  startActivity(new Intent(Chat_Activity.this, Add_Person.class));
+                        //  startActivity(new Intent(Chat_Activity.this, Add_Person_Activity.class));
                     case R.id.nav_addAlarm:
                         Toast.makeText(Chat_Activity.this, "TODO implement view for all alarms in group and make it possible to create alarms there", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(Chat_Activity.this, View_Alarms_Activity.class));
                         return true;
                     case R.id.nav_exitGroup:
-                        Home_Activity.user.getGroupNames().remove(GroupName);
-                        Home_Activity.user.uploadUser();
-                        startActivity(new Intent(Chat_Activity.this,Home_Activity.class));
-                        finish();
+                        showPopup(findViewById(R.id.nav_exitGroup));
                     default:
                         return false;
                 }
             }
         });
     }
+
+
+
     private ArrayList<Message> reverse(ArrayList<Message> chatList){
         Collections.reverse(chatList);
         return chatList;
@@ -169,4 +170,30 @@ public class Chat_Activity extends AppCompatActivity {
 
     }
 
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.Yes:
+                Toast.makeText(this, "Left group successfully", Toast.LENGTH_SHORT).show();
+                Home_Activity.user.getGroupNames().remove(GroupName);
+                Home_Activity.user.uploadUser();
+                startActivity(new Intent(Chat_Activity.this,Home_Activity.class));
+                finish();
+                return true;
+            case R.id.No:
+                Toast.makeText(this, "Decided to stay in group", Toast.LENGTH_SHORT).show();
+
+                return true;
+            default:
+                return false;
+        }
+
+    }
 }
