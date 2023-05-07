@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/Yes"
-        android:title="Yes"/>
+        android:title="Exit group"/>
     <item android:id="@+id/No"
-        android:title="No"/>
+        android:title="Cancel"/>
 
 
 </menu>
