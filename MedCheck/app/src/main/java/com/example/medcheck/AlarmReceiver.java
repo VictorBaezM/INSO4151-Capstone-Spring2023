@@ -136,7 +136,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (Data.get(3).equals(CurrentData.get(3))) {
             Log.println(Log.INFO, "debug", "Entered Here 4");
             Log.println(Log.INFO, "debug", "Trying " +Data.get(4) + " " + CurrentData.get(4));
-            if (Data.get(4).intValue() + 5 >= CurrentData.get(4).intValue() && Data.get(4).intValue()<= CurrentData.get(4).intValue()) {
+            if (Data.get(4).intValue() >= CurrentData.get(4).intValue() && Data.get(4).intValue()<= CurrentData.get(4).intValue()) {
                 Log.println(Log.INFO, "debug", "AlarmID: " + (int) intent.getExtras().get("AlarmID"));
             //    Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
                 Log.println(Log.INFO, "debug", "Alarm is running ");
