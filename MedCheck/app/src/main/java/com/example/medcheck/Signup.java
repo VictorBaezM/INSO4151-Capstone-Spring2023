@@ -78,7 +78,7 @@ public class Signup extends AppCompatActivity {
 //        pd.show();
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Signup.this, task -> {
             if (task.isSuccessful()){
-                Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(Signup.this, "Signup successful, please verify your email id.", Toast.LENGTH_SHORT).show();
                 User user =  new User(email,display_name,country,password);
                 FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
                 if (newuser!=null){
@@ -95,8 +95,9 @@ public class Signup extends AppCompatActivity {
                 }catch (Exception e){
                     Toast.makeText(Signup.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                 }
+                Home_Activity.user=user;
                 Intent intent = new Intent(Signup.this, Home_Activity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             } else{
