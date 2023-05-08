@@ -294,7 +294,7 @@ Alarm{Owner=Bob\Medication=Panadol\Description=Take with food\Date=10/05/1990\Ti
         if (Data.get(3).compareTo(CurrentData.get(3))>=0) {
             Log.println(Log.INFO, "debug", "Entered Here 4");
             Log.println(Log.INFO, "debug", "Trying " +Data.get(4) + " " + CurrentData.get(4));
-            if (Data.get(4).intValue() + 7 >= CurrentData.get(4).intValue()) {
+            if (Data.get(4).intValue()+5 > CurrentData.get(4).intValue()) {
                 return true;
             }
         }
