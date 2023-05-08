@@ -94,10 +94,12 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
         });
         MessageThread.start();
 //        loadMessages();
-        MessageListAdapter = new MessageListAdapter(this, reverse(chatList));
+        //reverse(chatList)
+        MessageListAdapter = new MessageListAdapter(this, chatList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(Chat_Activity.this));
         recyclerView.setAdapter(MessageListAdapter);
+        recyclerView.scrollToPosition(chatList.size()-1);
 
 
         sendTxt.setOnClickListener(view -> {
@@ -163,9 +165,10 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                     chatList.clear();
                     chatList.addAll(group.get().getMessages());
                     Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
-                    reverse(chatList);
+//                    reverse(chatList);
                     Log.println(Log.INFO,"debug","Got all messages from group on db and reversed"+chatList.toString());
                     MessageListAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(chatList.size()-1);
 
                 }
             }
@@ -183,13 +186,14 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                     chatList.clear();
                     chatList.addAll(group.get().getMessages());
                     Log.println(Log.INFO,"debug","Got all messages from group on db "+chatList.toString());
-                    reverse(chatList);
+//                    reverse(chatList);
                     Log.println(Log.INFO,"debug","Got all messages from group on db and reversed"+chatList.toString());
                     MessageListAdapter.notifyDataSetChanged();
                     group.get().addMessage(chat);
 //                    chatList.add(chat);
 //                    reverse(chatList);
                     MessageListAdapter.notifyItemInserted(chatList.size());
+                    recyclerView.scrollToPosition(chatList.size()-1);
                     group.get().uploadGroup();
                     loadMessages();
                 }

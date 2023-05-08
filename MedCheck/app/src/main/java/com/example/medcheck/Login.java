@@ -77,7 +77,7 @@ public class Login extends AppCompatActivity {
             Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show();
             FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
             if (newuser!=null){
-                Toast.makeText(context, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
+             //   Toast.makeText(context, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference Dref =  db.collection("Users").document(newuser.getUid());
                 Dref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>(){

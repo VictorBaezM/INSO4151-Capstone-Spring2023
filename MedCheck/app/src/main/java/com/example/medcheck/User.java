@@ -2,6 +2,7 @@ package com.example.medcheck;
 
 import android.util.Log;
 
+import com.example.medcheck.Adapters.MessageListAdapter;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
@@ -142,7 +143,7 @@ public class User implements java.io.Serializable{
         db.collection("Users").document(newuser.getUid()).set(this);
     }
 
-    public User getUserFromDB(String id) throws ExecutionException, InterruptedException {
+    public static void getUserNameFromDB(String id, MessageListAdapter.ReceivedMessageHolder r) throws ExecutionException, InterruptedException {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference Dref = db.collection("Users").document(id);
         AtomicReference<User> user1 = new AtomicReference<>(new User());
@@ -153,15 +154,11 @@ public class User implements java.io.Serializable{
                 if (doc.exists()) {
                     user1.set(doc.toObject(User.class));
                     Log.println(Log.INFO, "debug", "1The group acquired by the db is " + user1.toString());
-                    m.setMonitor1(1);
+                    r.setName(user1.get().getDisplay_name());
                 }
             }
         });
-        Tasks.whenAllComplete(var);
-        while (m.getMonitor1() == 0) ;
-        m.setMonitor1(0);
 
-        return user1.get();
     }
     public static void sendNotificationHelper(Alarm a){
         FirebaseFirestore db = FirebaseFirestore.getInstance();

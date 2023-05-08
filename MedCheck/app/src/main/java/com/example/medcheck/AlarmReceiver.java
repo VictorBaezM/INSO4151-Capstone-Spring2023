@@ -138,14 +138,14 @@ public class AlarmReceiver extends BroadcastReceiver {
             Log.println(Log.INFO, "debug", "Trying " +Data.get(4) + " " + CurrentData.get(4));
             if (Data.get(4).intValue() + 5 >= CurrentData.get(4).intValue() && Data.get(4).intValue()<= CurrentData.get(4).intValue()) {
                 Log.println(Log.INFO, "debug", "AlarmID: " + (int) intent.getExtras().get("AlarmID"));
-                Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
+            //    Toast.makeText(context, "Alarm worked.", Toast.LENGTH_LONG).show();
                 Log.println(Log.INFO, "debug", "Alarm is running ");
                 Intent intent1 = new Intent(context, Alarm_View_Activity.class);
                 intent1.putExtra("AlarmID", (int) intent.getExtras().get("AlarmID"));
                 intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Toast.makeText(context, "Starting context switch", Toast.LENGTH_LONG).show();
+               // Toast.makeText(context, "Starting context switch", Toast.LENGTH_LONG).show();
                 context.startActivity(intent1);
-                Toast.makeText(context, "Context switch finished", Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "Context switch finished", Toast.LENGTH_LONG).show();
                 return true;
             }
         }

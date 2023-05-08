@@ -31,7 +31,7 @@ public class Alarm_Scheduler {
         int Minute = alarm.getMinute();
 
 
-        Toast.makeText(context, alarm.toString()+"\n"+"ALARM ON", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, alarm.toString()+"\n"+"ALARM ON", Toast.LENGTH_SHORT).show();
         Log.println(Log.INFO,"debug","ID: "+AlarmID+"\nYear: "+Year+"\nMonth: "+Month+"\nDay: "+Day+ "\nHour: "+Hour+"\nMinute: "+Minute);
         Calendar calendar = Calendar.getInstance();
         // Set the alarm time using the provided Calendar parameter

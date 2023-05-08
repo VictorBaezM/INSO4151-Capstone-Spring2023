@@ -82,7 +82,7 @@ public class Signup extends AppCompatActivity {
                 User user =  new User(email,display_name,country,password);
                 FirebaseUser newuser = FirebaseAuth.getInstance().getCurrentUser();
                 if (newuser!=null){
-                    Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
+           //         Toast.makeText(Signup.this, "User is valid and is User#" + newuser.getUid(), Toast.LENGTH_LONG).show();
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     db.collection("Users").document(newuser.getUid()).set(user);
                 }

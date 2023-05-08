@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medcheck.Message;
 import com.example.medcheck.R;
+import com.example.medcheck.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class MessageListAdapter extends RecyclerView.Adapter {
     private static final int VIEW_TYPE_MESSAGE_SENT = 1;
@@ -73,7 +75,13 @@ public class MessageListAdapter extends RecyclerView.Adapter {
                 ((SentMessageHolder) holder).bind(message);
                 break;
             case VIEW_TYPE_MESSAGE_RECEIVED:
-                ((ReceivedMessageHolder) holder).bind(message);
+                try {
+                    ((ReceivedMessageHolder) holder).bind(message);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
         }
     }
 
@@ -97,7 +105,7 @@ public class MessageListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class ReceivedMessageHolder extends RecyclerView.ViewHolder {
+    public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         TextView messageText, timeText, nameText, dateText;
         ReceivedMessageHolder(View itemView) {
             super(itemView);
@@ -107,15 +115,20 @@ public class MessageListAdapter extends RecyclerView.Adapter {
             nameText = itemView.findViewById(R.id.text_gchat_user_other);
         }
 
-        void bind(Message message) {
+         void bind(Message message) throws ExecutionException, InterruptedException {
             messageText.setText(message.getContent());
 
             dateText.setText(message.getSend_Date());
 
             // Format the stored timestamp into a readable String using method.
             timeText.setText(message.getSend_Time());
-
-            nameText.setText(message.getUid());
+            User.getUserNameFromDB(message.getUid(),this);
         }
+
+        public void setName(String name){
+            nameText.setText(name);
+        }
+
+
     }
 }

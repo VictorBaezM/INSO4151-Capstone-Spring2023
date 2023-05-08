@@ -75,7 +75,7 @@ public class Alarm_example extends AppCompatActivity {
     // OnToggleClicked() method is implemented the time functionality
     public void OnToggleClicked(View view) {
         long time;
-        Toast.makeText(Alarm_example.this, "ALARM ON", Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(Alarm_example.this, "ALARM ON", Toast.LENGTH_SHORT).show();
         Calendar calendar = Calendar.getInstance();
         Alarm_Id = Alarm_Id + 1;
         // Set the alarm time using the provided Calendar parameter
