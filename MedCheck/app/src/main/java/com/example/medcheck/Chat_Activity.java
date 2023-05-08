@@ -141,7 +141,6 @@ public class Chat_Activity extends AppCompatActivity implements PopupMenu.OnMenu
                     return true;
                 case R.id.nav_exitGroup:
                     showPopup(findViewById(R.id.nav_exitGroup));
-                    finish();
                     return true;
                 default:
                     return false;
